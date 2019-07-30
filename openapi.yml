@@ -1,0 +1,272 @@
+openapi: 3.0.1
+info:
+  title: Oodrive File Manager
+  description: 'A simple file manager API. Find out more about its use at [@oodrive/front-technical-test](https://github.com/oodrive/front-technical-test).'
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/api
+tags:
+- name: items
+  description: Operations related to items
+paths:
+  /items:
+    get:
+      summary: Retrieve items
+      tags: [items]
+      parameters:
+        - $ref: '#/components/parameters/parentId'
+      responses:
+        200:
+          description: List of items
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemsList'
+    post:
+      summary: Create folder or empty file, or upload files using multipart.
+      description: When using multipart, if filename contains `/`, appropriate folders will be created as well.
+      tags: [items]
+      parameters:
+        - $ref: '#/components/parameters/parentId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/itemCreate'
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: Items uploaded (when using `multipart/form-data` Content-Type)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/itemsUploadResponse'
+        201:
+          description: Item created (when using `application/json` Content-Type)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/itemCreateResponse'
+        400:
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        404:
+          description: Parent not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /items/{itemId}:
+    get:
+      summary: Download file
+      tags: [items]
+      parameters:
+        - $ref: '#/components/parameters/itemId'
+      responses:
+        200:
+          description: Download file
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+    delete:
+      summary: Delete item and its subtree
+      tags: [items]
+      parameters:
+        - $ref: '#/components/parameters/itemId'
+      responses:
+        204:
+          description: Item deleted
+        404:
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    patch:
+      summary: Move or rename item
+      description: To move an item to the root directory, set `parentId` to `null`.
+      tags: [items]
+      parameters:
+        - $ref: '#/components/parameters/itemId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/itemMove'
+                - $ref: '#/components/schemas/itemRename'
+            examples:
+              itemMove:
+                $ref: '#/components/examples/itemMove'
+              itemRename:
+                $ref: '#/components/examples/itemRename'
+      responses:
+        200:
+          description: Updated item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        400:
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        404:
+          description: Item or parent not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /items/{itemId}/path:
+    get:
+      summary: Retrieve item path
+      tags: [items]
+      parameters:
+        - $ref: '#/components/parameters/itemId'
+      responses:
+        200:
+          description: Item path
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemsList'
+        404:
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  parameters:
+    itemId:
+      in: path
+      name: itemId
+      required: true
+      description: An item ID
+      schema:
+        type: string
+    parentId:
+      in: query
+      name: parentId
+      required: false
+      description: Folder ID (if not set, refers to root folder)
+      schema:
+        type: string
+  schemas:
+    itemCreate:
+      description: An item creation payload
+      properties:
+        name:
+          type: string
+          description: Item name
+        folder:
+          type: boolean
+          description: Whether item is a folder
+      required:
+        - name
+        - folder
+    itemCreateResponse:
+      allOf:
+        - $ref: '#/components/schemas/Item'
+    itemsUploadResponse:
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                title: Name of file that is in error
+              code:
+                type: string
+                title: Code of error
+              desc:
+                type: string
+                title: Description of error
+    itemMove:
+      description: An item move payload
+      properties:
+        parentId:
+          type: string
+          description: ID of the destination
+          nullable: true
+      required:
+        - parentId
+    itemRename:
+      description: An item rename payload
+      properties:
+        name:
+          type: string
+          description: New name for the specified item
+      required:
+        - name
+    Item:
+      description: An item
+      properties:
+        id:
+          type: string
+          description: ID of item
+        parentId:
+          type: string
+          description: ID of parent folder
+        name:
+          type: string
+          description: Item name
+        folder:
+          type: boolean
+          description: Whether item is a folder
+        creation:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        modification:
+          type: string
+          format: date-time
+          description: Modification timestamp
+      required:
+        - id
+        - name
+        - folder
+        - creation
+        - modification
+    ItemsList:
+        type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Item'
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: string
+        desc:
+          type: string
+  examples:
+    itemMove:
+      summary: Move an item
+      value:
+        parentId: zDKBzxxAF
+    itemRename:
+      summary: Rename an item
+      value:
+        name: 'newname.jpg'
