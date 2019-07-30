@@ -12,7 +12,12 @@
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production"
   },
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
   "devDependencies": {
+    "@types/react-dom": "^16.8.5",
     "awesome-typescript-loader": "^5.2.1",
     "connect-busboy": "0.0.2",
     "cors": "2.8.5",

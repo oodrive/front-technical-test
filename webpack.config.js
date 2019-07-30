@@ -2,7 +2,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const fs = require('fs');
 
 module.exports = {
-	entry: fs.existsSync("./src/index.ts") ? "./src/index.ts" : "./src/index.js",
+	entry: fs.existsSync("./src/index.tsx") ? "./src/index.tsx" : "./src/index.jsx",
 
 	// Enable sourcemaps for debugging webpack's output.
 	devtool: "source-map",
