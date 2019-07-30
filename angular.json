@@ -1,0 +1,91 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "",
+  "projects": {
+    "main": {
+      "root": "src",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "prefix": "fl",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "outputPath": "bin",
+            "index": "public/index.html",
+            "main": "src/index.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.json",
+            "aot": false,
+            "extractLicenses": false,
+            "vendorSourceMap": true,
+            "evalSourceMap": true,
+            "baseHref": "/filer/",
+            "customWebpackConfig": {
+              "path": "./extra-webpack.config.js"
+            },
+            "styles": [
+              "src/index.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "sourceMap": false,
+              "vendorSourceMap": false,
+              "evalSourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/index.ts",
+                  "with": "src/index.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "browserTarget": "main:build",
+            "host": "0.0.0.0",
+            "port": 8080,
+            "ssl": false,
+            "hmr": true,
+            "baseHref": "/"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "main:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "main"
+}
