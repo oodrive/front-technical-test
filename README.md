@@ -1,6 +1,6 @@
-# [Oodrive](https://www.oodrive.com) - Front-End technical test
+# [Oodrive](https://www.oodrive.com) - Front-end technical test
 
-This test is part of Oodrive's hiring process for a Front-End developer position. It should take 3 to 6 hours of your time.
+This test is part of Oodrive's hiring process for a front-end developer position. It should take 3 to 6 hours of your time.
 
 > **Feel free to apply! Contact us through [our application page](https://careers.oodrive.com/fr/candidature/spontanee).**
 >
@@ -8,7 +8,7 @@ This test is part of Oodrive's hiring process for a Front-End developer position
 
 ## Summary
 
-The goal of this technical test is to code a small file manager.
+The goal of this technical test is to code a small file manager app that interacts with the API provided at http://localhost:8080/api.
 
 The mandatory features are the following:
 - display the root files and folders
@@ -33,8 +33,8 @@ Although we are working with Angular at Oodrive, there is _no limitation_ in the
 The repository is initialized with **TypeScript** and **Sass** but supports **JavaScript** and **CSS** as well. That being said, you can change anything you want.
 
 The following branches with the appropriate tooling have also been initialized:
-- [Angular](https://github.com/oodrive/front-technical-test#angular)
-- [React](https://github.com/oodrive/front-technical-test#react)
+- [Angular](https://github.com/oodrive/front-technical-test/tree/angular)
+- [React](https://github.com/oodrive/front-technical-test/tree/react)
 
 ## Quick start
 
