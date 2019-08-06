@@ -2,39 +2,59 @@
 
 This test is part of Oodrive's hiring process for a front-end developer position. It should take 3 to 6 hours of your time.
 
-> **Feel free to apply! Contact us through [our application page](https://careers.oodrive.com/fr/candidature/spontanee).**
+> **Feel free to apply!**  
+> **Contact us through [our application page](https://careers.oodrive.com/fr/candidature/spontanee).**
 >
 > You can also find the list of open positions at Oodrive on [our careers page](https://careers.oodrive.com/fr/annonces).
 
-## Summary
+## Objective
 
-The goal of this technical test is to code a small file manager app that interacts with the API provided at http://localhost:8080/api.
+The goal of this technical test is to code a small file manager app. It will require you to read, understand and implement an unknown API using JavaScript, and create a basic user interface to present the data.
 
-The mandatory features are the following:
-- display the root files and folders
-- upload a file
-- download a file
+### Structure
 
-From there, you can add all the features you want, including but not limited to:
-- navigate inside folders
-- use routing for navigation
-- rename a file or folder
-- create a new folder
-- move a file / folder to another folder
-- delete a file or a folder
-- upload multiple files / folders
-- upload through drag and drop
-- make the app responsive
+In this repository's main branch you are provided with a webpack-based boilerplate that allows you to quickly start developing your app in **TypeScript** and **Sass** (the stack also supports **JavaScript** and **CSS**). That being said, you are free to change anything you want.
 
-This should take 3 to 6 hours of your time. We suggest you don't spend too much time on CSS or on browser compatibility. Just target one evergreen browser.
+The following branches have also been initialized with their appropriate tooling:
+
+- [Angular](https://github.com/oodrive/front-technical-test/tree/angular)
+- [React](https://github.com/oodrive/front-technical-test/tree/react)
 
 Although we are working with Angular at Oodrive, there is _no limitation_ in the frameworks and libraries you can use for this test.
 
-The repository is initialized with **TypeScript** and **Sass** but supports **JavaScript** and **CSS** as well. That being said, you can change anything you want.
+### API
 
-The following branches with the appropriate tooling have also been initialized:
-- [Angular](https://github.com/oodrive/front-technical-test/tree/angular)
-- [React](https://github.com/oodrive/front-technical-test/tree/react)
+The **api** directory contains the code for the mock file manager API you will be using, so you don't have to change anything in those files (you can of course take a look inside if you want). For more convenience, you can [check out the OpenAPI documentation here](https://generator.swagger.io?url=https://raw.githubusercontent.com/oodrive/front-technical-test/master/openapi.yml).
+
+From your code, you can access it at `http://localhost:8080/api`.
+
+### What we're expecting
+
+We expect your code to work without bugs and implement the following features:
+
+- Display the root files and folders
+- Download a file
+- Upload a file
+
+We also expect your code to be a reflection of yourself at work, so we will be attentive to the choices you'll make regarding code architecture, readability and performance.
+
+### What we're not expecting
+
+We suggest you don't spend too much time on your UI, we know how time intensive it can be. The same can be said for browser compatibility, just make sure your app works in one evergreen browser, like Chrome for instance.
+
+### Bonus features
+
+If you have some time left and want to go a little bit further, here are some feature ideas you can add to this app:
+
+- Navigate inside folders
+- Use routing for navigation
+- Rename a file or folder
+- Create a new folder
+- Move a file / folder to another folder
+- Delete a file or a folder
+- Upload multiple files / folders
+- Upload through drag and drop
+- Make the app responsive
 
 ## Quick start
 
@@ -43,10 +63,11 @@ npm ci
 npm start
 ```
 
-## [API documentation](https://generator.swagger.io?url=https://raw.githubusercontent.com/oodrive/front-technical-test/master/openapi.yml)
-
 ## Submission
 
-Fork this repository and send us a pull request.
+The quickest way to submit your work is by [forking](https://github.com/oodrive/front-technical-test/fork) this repository, then sending us a Pull Request after you're done.
+
+Alternatively, you can copy this repository to your personal space, and send us a link to your branch (if you make your repo private, you'll need to [invite us as collaborators](https://help.github.com/en/articles/inviting-collaborators-to-a-personal-repository)).
 
 If this is an unsolicited application, you can contact us with the link to your pull request on [our application page](https://careers.oodrive.com/fr/candidature/spontanee).
+
