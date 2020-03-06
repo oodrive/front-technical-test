@@ -16,8 +16,14 @@
     "@angular/common": "8.1.3",
     "@angular/compiler": "8.1.3",
     "@angular/core": "8.1.3",
+    "@angular/forms": "^8.2.0",
     "@angular/platform-browser": "8.1.3",
-    "@angular/platform-browser-dynamic": "8.1.3"
+    "@angular/platform-browser-dynamic": "8.1.3",
+    "@types/file-saver": "^2.0.1",
+    "bootstrap": "^4.4.1",
+    "file-saver": "^2.0.2",
+    "multer": "^1.4.2",
+    "ng2-file-upload": "^1.4.0"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "8.1.0",
@@ -27,14 +33,14 @@
     "@angularclass/hmr": "^2.1.3",
     "connect-busboy": "0.0.2",
     "cors": "2.8.5",
-    "css-loader": "^3.1.0",
-    "globby": "^10.0.1",
+    "css-loader": "^3.4.2",
+    "globby": "^10.0.2",
     "lowdb": "^1.0.0",
-    "mime-types": "^2.1.24",
-    "node-sass": "^4.12.0",
-    "sass-loader": "^7.1.0",
-    "shortid": "^2.2.14",
-    "tslint": "^5.18.0",
+    "mime-types": "^2.1.26",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^7.3.1",
+    "shortid": "^2.2.15",
+    "tslint": "^5.20.1",
     "tslint-eslint-rules": "^5.4.0",
     "zone.js": "^0.9.1"
   }

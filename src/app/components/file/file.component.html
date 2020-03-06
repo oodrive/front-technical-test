@@ -1,0 +1,41 @@
+<form [formGroup]="uploadForm">
+	<div class="form-group">
+		<input type="file"
+			   id="file"
+			   name="file"
+			   #inputFile
+			   (change)="handleFileInput($event.target.files)">
+	</div>
+
+	<div class="row">
+		<div class="col-sm-8" *ngIf="uploaded">{{fileToUpload.name}}</div>
+		<div class="col-lg-8" >
+			<div class="progress" style="height:30px; margin-top:15px" >
+				<div class="progress-bar bg-success"
+					 [ngStyle]="{'width':percentDone+'%','margin-top':'15px'}"></div>
+			</div>
+		</div>
+		<div>
+			<button type="button" class="btn btn-primary" style="width:200px"(click)="uploadFileToActivity()">Upload File</button>
+			<button type="button" class="btn btn-danger" (click)="restUpload()">Clear</button>
+		</div>
+	</div>
+
+</form>
+<table>
+	<th>Name</th>
+	<th>Type</th>
+	<th>Creation </th>
+	<th>Download</th>
+	<tr *ngFor="let item of items;">
+		<td>{{item.name}}</td>
+		<td *ngIf="item.folder">folder</td>
+		<td *ngIf="!item.folder">file</td>
+		<td>{{item.creation|date:'dd/MM/yyyy'}}</td>
+		<td><button *ngIf="!item.folder" type="button" class="btn btn-primary" (click)="download(item)">Download File</button></td>
+	</tr>
+</table>
+
+
+
+

@@ -26,7 +26,8 @@
               "path": "./extra-webpack.config.js"
             },
             "styles": [
-              "src/index.scss"
+              "src/index.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
