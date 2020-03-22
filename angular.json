@@ -25,13 +25,9 @@
             "customWebpackConfig": {
               "path": "./extra-webpack.config.js"
             },
-            "styles": [
-              "src/index.scss"
-            ],
+            "styles": ["src/index.scss"],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "src"
-              ]
+              "includePaths": ["src"]
             }
           },
           "configurations": {
@@ -76,12 +72,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["tsconfig.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

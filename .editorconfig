@@ -6,6 +6,7 @@ indent_style = tab
 insert_final_newline = true
 charset = utf-8
 trim_trailing_whitespace = true
+quote_type = single
 
 [*.{json,md,yml}]
 indent_style = space

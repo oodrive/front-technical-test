@@ -4,4 +4,16 @@
 	align-items: center;
 	justify-content: center;
 	font-size: 30px;
+	.app-wrapper {
+		padding: 100px;
+		height: 100%;
+		box-sizing: border-box;
+		width: 100%;
+		display: block;
+	}
+	.card {
+		height: 100%;
+		box-sizing: border-box;
+		padding: 0;
+	}
 }
