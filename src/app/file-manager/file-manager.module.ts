@@ -16,7 +16,6 @@ import { NewFolderDialogComponent } from './modals/newFolderDialog/newFolderDial
 import { RenameDialogComponent } from './modals/renameDialog/renameDialog.component';
 import { FileManagerComponent } from './file-manager.component';
 import { FileManagerRoutingModule } from './file-manager-routing.module';
-
 @NgModule({
 	imports: [
 		FormsModule,

@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FileManagerComponent } from './file-manager.component';
+/* import { ChildComponent } from './child/child.component'; */
 
 const routes: Routes = [
 	{
 		path: '',
 		component: FileManagerComponent,
 		children: [
-			/* {
-				path: ":name",
+			{
+				path: ':name',
 				component: FileManagerComponent
-			} */
+			}
 		]
 	}
 ];

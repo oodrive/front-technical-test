@@ -1,32 +1,8 @@
-<!-- <div class="">
-	<input
-		type="file"
-		(change)="fileChange(fileInput.files)"
-		multiple
-		#fileInput
-	/>
-	<ul>
-		<li *ngFor="let item of items; let index = index">
-			<a [routerLink]="item.name" *ngIf="item.folder">{{ item.name }}</a>
-			<a *ngIf="!item.folder">{{ item.name }}</a>
-			<button (click)="downloadFile(item.id, item.name)" *ngIf="!item.folder">
-				Download
-			</button>
-			<button (click)="deleteFile(item.id, index)" *ngIf="!item.folder">
-				Delete
-			</button>
-			<button (click)="renameFile(item, index, item.folder)">
-				Rename
-			</button>
-		</li>
-	</ul>
-</div>
-<router-outlet></router-outlet> -->
 <mat-toolbar>
 	<mat-icon *ngIf="canNavigateUp" class="pointer" (click)="navigateUp()"
 		>arrow_back</mat-icon
 	>
-	<span style="margin-left: 8px">{{ path || 'File manager' }}</span>
+	<span style="margin-left: 8px">{{ currentPath || 'File manager' }}</span>
 	<span class="spacer"></span>
 	<button mat-icon-button [matMenuTriggerFor]="appMenu">
 		<mat-icon>more_vert</mat-icon>
@@ -101,7 +77,11 @@
 			<mat-icon>open_with</mat-icon>
 			<span>Move To</span>
 		</button>
-		<button mat-menu-item (click)="downloadFile(element)">
+		<button
+			mat-menu-item
+			*ngIf="!element.folder"
+			(click)="downloadFile(element)"
+		>
 			<mat-icon>get_app</mat-icon>
 			<span>Download</span>
 		</button>
@@ -129,3 +109,5 @@
 		</ng-container>
 	</ng-template>
 </mat-menu>
+
+<!-- <router-outlet></router-outlet> -->

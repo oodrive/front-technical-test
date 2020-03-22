@@ -12,11 +12,11 @@ import { FileManagerModule } from './file-manager/file-manager.module';
 @NgModule({
 	imports: [
 		BrowserModule,
-		BrowserAnimationsModule,
+		MatCardModule,
 		HttpClientModule,
-		FileManagerModule,
 		FlexLayoutModule,
-		MatCardModule
+		FileManagerModule,
+		BrowserAnimationsModule
 	],
 	declarations: [AppComponent],
 	bootstrap: [AppComponent]

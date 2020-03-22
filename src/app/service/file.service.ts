@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 
 import { Item } from '../file-manager/model/item';
 
@@ -11,13 +11,13 @@ import { Item } from '../file-manager/model/item';
 })
 export class FileService {
 	private api: string = '/api/items';
-
 	constructor(private http: HttpClient) {}
 
-	public getItems(): Observable<Item[]> {
-		return this.http
-			.get<Item[]>(`${this.api}`)
-			.pipe(catchError(error => throwError(error || 'Server error')));
+	public getItems(parentId?: string): Observable<Item[]> {
+		const url: string = parentId
+			? `${this.api}?parentId=${parentId}`
+			: `${this.api}`;
+		return this.http.get<Item[]>(url).pipe(catchError(this.handleError));
 	}
 
 	public uploadItems(files: any[], parentId?: string): Observable<any> {
@@ -29,15 +29,13 @@ export class FileService {
 		for (let i = 0; i < files.length; i++) {
 			formData.append('uploads[]', files[i], files[i]['name']);
 		}
-		return this.http
-			.post(url, formData)
-			.pipe(catchError(error => throwError(error || 'Server error')));
+		return this.http.post(url, formData).pipe(catchError(this.handleError));
 	}
 
 	public createFolder(folderName: string): Observable<Item> {
 		return this.http
 			.post<Item>(`${this.api}`, { name: folderName, folder: true })
-			.pipe(catchError(error => throwError(error || 'Server error')));
+			.pipe(catchError(this.handleError));
 	}
 
 	public downloadItem(itemId: string): Observable<any> {
@@ -45,30 +43,34 @@ export class FileService {
 			.get(`${this.api}/${itemId}`, {
 				responseType: 'blob'
 			})
-			.pipe(catchError(error => throwError(error || 'Server error')));
+			.pipe(catchError(this.handleError));
 	}
 
 	public renameItem(item: Item, name: string): Observable<Item> {
 		return this.http
 			.patch<Item>(`${this.api}/${item.id}`, { name })
-			.pipe(catchError(error => throwError(error || 'Server error')));
+			.pipe(catchError(this.handleError));
 	}
 
 	public moveItem(itemId: string, parentId: string): Observable<any> {
 		return this.http
 			.patch(`${this.api}/${itemId}`, { parentId })
-			.pipe(catchError(error => throwError(error || 'Server error')));
+			.pipe(catchError(this.handleError));
 	}
 
 	public delete(itemId: string): Observable<any> {
 		return this.http
 			.delete(`${this.api}/${itemId}`)
-			.pipe(catchError(error => throwError(error || 'Server error')));
+			.pipe(catchError(this.handleError));
 	}
 
 	public retrieveItemPath(itemId: string): Observable<Item[]> {
 		return this.http
 			.get<Item[]>(`${this.api}/${itemId}/path`)
-			.pipe(catchError(error => throwError(error || 'Server error')));
+			.pipe(catchError(this.handleError));
+	}
+
+	private handleError(error: Response) {
+		return throwError(error.json() || 'Server error');
 	}
 }

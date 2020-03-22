@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 
 import { concat, isEmpty } from 'lodash';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { MatMenuTrigger } from '@angular/material/menu';
 
 import { Item } from './model/item';
 import { FileService } from '../service/file.service';
@@ -22,7 +23,11 @@ export class FileManagerComponent implements OnInit, OnDestroy {
 	public currentPath: string;
 	public canNavigateUp = false;
 	private subscriptions: Subscription = new Subscription();
-	constructor(private fileService: FileService, public dialog: MatDialog) {}
+	constructor(
+		private dialog: MatDialog,
+		private router: Router,
+		private fileService: FileService
+	) {}
 
 	ngOnInit() {
 		this.getAllItems();
@@ -46,10 +51,10 @@ export class FileManagerComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	public getAllItems() {
+	public getAllItems(parentId?: string) {
 		this.subscriptions.add(
 			this.fileService
-				.getItems()
+				.getItems(parentId)
 				.subscribe((responses: any): Item[] => (this.items = responses.items))
 		);
 	}
@@ -124,14 +129,30 @@ export class FileManagerComponent implements OnInit, OnDestroy {
 
 	public navigate(item: Item) {
 		if (item.folder) {
+			this.currentPath = '';
 			this.currentRoot = item;
-			this.updateFileElementQuery();
+			this.updateFileElementQuery(item);
 			this.currentPath = this.pushToPath(this.currentPath, item.name);
 			this.canNavigateUp = true;
 		}
 	}
 
-	private updateFileElementQuery() {}
+	public navigateUp() {
+		if (location.pathname !== '/') {
+			this.currentPath = '';
+			delete this.currentRoot;
+			this.canNavigateUp = false;
+			this.router.navigateByUrl('/');
+			this.getAllItems();
+		}
+	}
+
+	private updateFileElementQuery(item: Item) {
+		this.router.navigateByUrl(item.name);
+		if (item && item.id) {
+			this.getAllItems(item.id);
+		}
+	}
 
 	private pushToPath(path: string, folderName: string) {
 		let p = path ? path : '';
