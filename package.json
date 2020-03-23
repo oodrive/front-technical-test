@@ -9,7 +9,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "ng serve",
+    "start": "ng serve --disableHostCheck",
     "build": "ng build"
   },
   "dependencies": {
