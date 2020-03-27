@@ -45,7 +45,7 @@
     "object-literal-shorthand": true,
     "ban": [true, ["alert"], ["confirm"], ["prompt"]],
     "eofline": true,
-    "linebreak-style": [true, "LF"],
+    // "linebreak-style": [true, "LF"],
 
     "adjacent-overload-signatures": true,
     "no-empty-interface": true,
