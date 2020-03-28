@@ -12,5 +12,5 @@ export const environment = {
 	name: 'Prod',
 
   /** Activate Logs */
-	log: 'true',
+	log: false,
 };

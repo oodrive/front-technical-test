@@ -14,5 +14,5 @@ export const environment = {
 	name: 'dev',
 
   /** Activate Logs */
-	log: 'true',
+	log: true,
 };
