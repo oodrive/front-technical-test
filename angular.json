@@ -26,7 +26,8 @@
               "path": "./extra-webpack.config.js"
             },
             "styles": [
-              "src/index.scss"
+              "src/index.scss",
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

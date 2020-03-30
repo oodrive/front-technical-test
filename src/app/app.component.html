@@ -1,1 +1,70 @@
-Hello World!
+<div class="container shadow mt-3 mb-5 p-3">
+	<!-- Title -->
+	<div class="jumbotron jumbotron-fluid p-3">
+		<div class="container">
+		  <h4 class="font-weight-bold">Oodrive Files</h4>
+		</div>
+	</div>
+	<!-- Root Part -->
+	<table class="table table-bordered mt-3">
+		<thead class="text-center">
+			<tr class="thead-light">
+				<th colspan="4">Root Table</th>
+			</tr>
+			<th>Type</th>
+			<th>Root</th>
+			<th>Download</th>
+			<th>Delete</th>
+		</thead>
+		<tbody class="text-center">
+			<tr *ngFor="let item of root?.items">
+				<td>
+					<span *ngIf="item.folder == true">Folder</span>
+					<span *ngIf="item.folder == false">File</span>
+				</td>
+				<td *ngIf="item.folder == true">
+					{{item._links?.children.href}}
+				</td>
+				<td *ngIf="item.folder == false">
+					{{item._links?.download.href}}
+				</td>
+				<td *ngIf="item.folder == true">
+					<span class="material-icons"> folder </span>
+				</td>
+				<td *ngIf="item.folder == false">
+					<a href="{{item._links?.download.href}}" target="_blank">
+						<span class="material-icons"> attach_file </span>
+					</a>
+				</td>
+				<td class="pointer">
+					<span class="material-icons delete-icon" (click)="deleteFile(item.id)">  delete </span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<!-- Upload Part -->
+	<div class=" mt-5 mb-5">
+		<h3 class="text-center">Upload files</h3>
+
+		<form [formGroup]="uploadForm" (ngSubmit)="submitFiles()">
+			<div class="form-group">
+				<label for="file">File</label>
+				<input 
+					formControlName="file"
+					id="file" 
+					type="file" 
+					multiple
+					class="form-control"
+					(change)="onFileChange($event)
+				">
+				<div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+					<div *ngIf="f.file.errors.required">File is required.</div>
+				</div>
+			</div>
+				
+			<button class="btn btn-primary" type="submit" [disabled]="f.file.errors?.required">
+				Submit
+			</button>
+		</form>
+	</div>
+</div>
