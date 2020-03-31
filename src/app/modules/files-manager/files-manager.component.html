@@ -1,1 +1,82 @@
-<p>files-manager works!</p>
+<div class="container" flDragDrop (files)="upload($event)">
+    <!-- Begin filter input field-->
+    <mat-form-field appearance="outline">
+        <input matInput placeholder="Filtre" [formControl]="itemFormControl">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <!--End Filter-->
+
+    <!-- Begin Sub Header-->
+    <div class="sub-header">
+        <nav class="navigation">
+            <mat-icon class="nav-icon" (click)="navigateToMain()">home</mat-icon>
+            <a *ngFor="let folder of breadcrumbList; let indx = index" class="nav-link"
+                (click)="navigateToParent(breadcrumbList, indx)">{{folder.name}}</a>
+        </nav>
+        <div class="action">
+            <div style="height: 0;" *ngIf="selectedItem">
+                <mat-icon matSuffix *ngIf="!selectedItem.folder" (click)="download()">save_alt</mat-icon>
+                <mat-icon matSuffix (click)="delete(selectedItem.id)">delete_outline</mat-icon>
+            </div>
+        </div>
+        <a #downloadLink></a>
+        <mat-icon matSuffix (click)="openDialog()">create_new_folder</mat-icon>
+        <mat-icon matSuffix (click)="file.click()">cloud_upload</mat-icon>
+        <input type="file" #file style="display: none" accept="file_extension|audio/*|video/*|image/*|media_type"
+            multiple="" (change)="upload($event)" data-original-title="upload">
+    </div>
+    <!-- End Sub Header-->
+
+    <!-- Begin diplay all items [Folder | File] -->
+    <div class="flexwrap" *ngIf="items && items.length >0">
+        <div *ngFor="let item of filteredItems | async" [class.selected]="selectedItem === item" class="flexbox element"
+            (click)="selectItem(item)" (dblclick)="navigateToChild(item)"
+            (contextmenu)="onContextMenu($event, item);$event. preventDefault();">
+            <span class="icon">
+                <mat-icon *ngIf="item.folder">folder_open</mat-icon>
+                <mat-icon *ngIf="!item.folder">insert_drive_file</mat-icon>
+            </span>
+            <span class="element-text">{{item.name}}</span>
+        </div>
+    </div>
+    <fl-drag-drop (filesOutput)="upload($event)" *ngIf="items && items.length ===0"></fl-drag-drop>
+    <!-- End display-->
+</div>
+
+
+<div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+    [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+</div>
+
+<!-- Menu to display all item action (operation) when the user click right -->
+<mat-menu #contextMenu="matMenu">
+    <ng-template matMenuContent let-item="item">
+        <button mat-menu-item [matMenuTriggerFor]="moveToMenu" [matMenuTriggerData]="{self: item}">
+            <mat-icon>open_with</mat-icon>
+            <span>Déplacer vers</span>
+        </button>
+        <button mat-menu-item (click)="openDialog(item)">
+            <mat-icon>edit</mat-icon>
+            <span>Renommer</span>
+        </button>
+        <button mat-menu-item (click)="download()">
+            <mat-icon>save_alt</mat-icon>
+            <span>Télécharger</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="delete(item.id)">
+            <mat-icon>delete</mat-icon>
+            <span>Supprimer</span>
+        </button>
+    </ng-template>
+</mat-menu>
+
+<!-- Menu to display all the folder location -->
+<mat-menu #moveToMenu="matMenu">
+    <ng-template matMenuContent let-self="self">
+        <ng-container *ngFor="let item of items">
+            <button *ngIf="item.folder && item.id !== self.id" mat-menu-item
+                (click)="moveItem(self, item)">{{item.name}}</button>
+        </ng-container>
+    </ng-template>
+</mat-menu>

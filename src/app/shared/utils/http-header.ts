@@ -9,8 +9,8 @@ export class HttpHeader {
         const headers: HttpHeaders = new HttpHeaders();
         headers.append('Access-Control-Allow-Origin', '*');
         headers.append('Access-Control-Allow-Methods', 'GET,POST,PATCH,DELETE,PUT,OPTIONS');
-        headers.append('Content-Type', 'application/json');
-        headers.append('Accept', 'application/json');
+        headers.append('Access-Control-Allow-Headers',
+            'Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization');
         return headers;
     }
 }

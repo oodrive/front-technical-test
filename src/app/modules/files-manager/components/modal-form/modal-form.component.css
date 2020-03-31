@@ -1,0 +1,75 @@
+.modal-header {
+    padding: 5px 0;
+}
+
+.modal-title {
+    color: #222;
+    font-size: 20px;
+    border-bottom: 1px solid transparent;
+    font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    margin-bottom: 20px;
+    padding-right: 24px;
+}
+
+.modal-body {
+    position: relative;
+    padding: 5px 0;
+    text-align: center;
+}
+
+.modal-body>p {
+    margin: 0 !important;
+    line-height: 35px;
+}
+
+.modal-footer {
+    padding: 5px 0;
+    text-align: right;
+}
+
+.btn-white {
+    border: none;
+    height: 26px;
+    background-color: transparent;
+    font-family: "Roboto", "sans-serif";
+    line-height: 1.5;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.btn-blue {
+    height: 26px;
+    font-family: "Roboto", "sans-serif";
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    background-color: #3274ff;
+    color: wheat;
+    border: none;
+    padding-bottom: 15px;
+    text-align: center;
+    min-width: 63px;
+}
+
+button[disabled=disabled], button:disabled {
+background-color: gainsboro;
+color: gray;
+}
+
+.mat-radio-group {
+    float: left;
+    font-size: 18px;
+    padding: 10px 0;
+}
+
+::ng-deep .mat-dialog-container {
+    border-radius: 8px;
+    padding: 10px 20px;
+    min-width: 400px;
+}
+
+mat-form-field {
+    font-size: 15px;
+    width: 98%;
+    margin-left: 10px;
+}

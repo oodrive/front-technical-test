@@ -1,0 +1,157 @@
+.container{
+    width: 70%;
+    margin: 0 auto
+}
+.sub-header {
+    display: flex;
+    padding: 0 25px 0 10px;
+    margin: 0 15px;
+}
+
+.navigation {
+    font-family: Sans,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    font-variant-ligatures: no-contextual;
+    font-size: 18px;
+    padding: 0 15px;
+    text-align: left;
+    line-height: 2em;
+    background-color: #f1f3f4;
+    border-radius: 25px;
+}
+
+.nav-icon {
+    vertical-align: sub;
+    @extend .user-select;
+}
+.nav-icon:hover {
+    color: grey;
+}
+.nav-link {
+    cursor: pointer;
+    @extend .user-select;
+}
+
+.nav-link::after {
+    display: inline-block;
+    color: #000;
+    content: '/';
+    font-size: 1em;
+    font-weight: bold;
+    padding: 0 5px;
+}
+
+.action {
+    margin-left: auto;
+}
+
+.flexwrap {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.flexbox {
+    -webkit-flex: 1 20em;
+    flex: 1 20em;
+    height: 100px;
+    padding: 0 10px;
+    margin: 9px;
+    width: 170px;
+}
+
+.element {
+    max-width: 180px;
+    height: 50px;
+    border: 1px solid #dadce0;
+    border-radius: 7px;
+}
+
+.user-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.element-text {
+    font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    -webkit-box-flex: 1 1 auto;
+    font-weight: 500;
+    position: relative;
+    font-size: 13px;
+     width: calc(100% - 43px); 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    float: left;
+    line-height: 50px;
+    cursor: pointer;
+    @extend .user-select;
+}
+
+.element:hover, .selected {
+    background-color: #e8f0fe;
+    .element-text {
+        color: #1967d2;
+    }
+}
+
+.icon {
+    -webkit-box-flex: 1 1 auto;
+    font-weight: 500;
+    width: 30px;
+    float: left;
+    line-height: 50px;
+    @extend .user-select;
+}
+
+mat-form-field {
+    font-size: 15px;
+    width: 95%;
+    padding: 10px;
+}
+
+mat-divider {
+    margin: 0 10px;
+}
+mat-icon {
+    cursor: pointer;
+    font-size: 25px;
+    margin-right: 15px;
+    line-height: 25px;
+    @extend .user-select;
+}
+mat-icon:active {
+    color: gray;
+    border-radius: 4em;
+    @extend .user-select
+}
+::ng-deep .mat-form-field-wrapper {
+    padding: 0 0 5px 0;
+}
+
+@media screen and (max-width: 640px) {
+    .container {
+      width:95%;
+    }
+    .sub-header {
+        padding: 0;
+        margin: 0;
+    }
+    .element {
+        width: 100%;
+        max-width: unset;
+    }
+  }
+
+@media screen and (min-width: 640px) {
+    .container {
+      width:72%;
+    }
+  }
+
+  .darg {
+      background-color: #e8f0fe;
+  }

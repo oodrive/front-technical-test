@@ -2,3 +2,7 @@
 /dist
 /db
 /bin
+/.firebase
+.firebaserc
+/coverage
+firebase.json

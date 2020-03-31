@@ -1,0 +1,6 @@
+<div class="upload-file-container" flDragDrop (files)="filesDropped($event)" (click)="file.click()">
+    <mat-icon  class="upload-file-icon" >cloud_upload</mat-icon>
+</div>
+
+<input type="file" #file style="display: none" accept="file_extension|audio/*|video/*|image/*|media_type"
+    multiple="" (change)="filesDropped($event)" data-original-title="upload">

@@ -21,7 +21,7 @@
             "extractLicenses": false,
             "vendorSourceMap": true,
             "evalSourceMap": true,
-            "baseHref": "/filer/",
+            "baseHref": "/",
             "customWebpackConfig": {
               "path": "./extra-webpack.config.js"
             },

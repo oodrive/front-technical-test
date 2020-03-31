@@ -119,7 +119,7 @@ export class FilesManagerService {
    */
   public renameItem(item: Item, name: string): Observable<Item> {
     return this._http
-      .patch<Item>(`${this._http}/${item.id}`, { name }, { headers: this._headers })
+      .patch<Item>(`${this._hostUrl}/${item.id}`, { name }, { headers: this._headers })
       .pipe(
         tap(() => this._helper.trace(`Delete item with ID : ${item.id} - ${this._hostUrl}`)),
         catchError(this._helper.handleErrors<Item>('rename item')));
@@ -132,7 +132,7 @@ export class FilesManagerService {
    */
   public moveItem(itemId: string, parentId: string): Observable<any> {
     return this._http
-      .patch<Item>(`${this._http}/${itemId}`, { parentId })
+      .patch<Item>(`${this._hostUrl}/${itemId}`, { parentId })
       .pipe(
         tap(() => this._helper.trace(`Move item : ${itemId} to ${parentId} - ${this._hostUrl}`)),
         catchError(this._helper.handleErrors<Item>('Move item')));

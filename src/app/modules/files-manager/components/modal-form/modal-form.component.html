@@ -1,0 +1,31 @@
+<form [formGroup]="formItem" (ngSubmit)="onSubmit()">
+    <div class="modal-header">
+        <strong>
+            <span class="modal-title">{{data.title}}</span>
+        </strong>
+    </div>
+    <div class="modal-body">
+
+        <mat-form-field *ngIf="!data.item">
+            <input type="text" placeholder="Parent" matInput formControlName="parentId" [matAutocomplete]="autoParent">
+            <mat-autocomplete #autoParent="matAutocomplete" [displayWith]="displatWithName.bind(this)">
+                <mat-option *ngFor="let item of filteredItemOptions | async" [value]="item.id">
+                    {{item.name}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-radio-group formControlName="folder" *ngIf="!data.item">
+            <mat-radio-button [value]="true">Dossier</mat-radio-button>
+            <mat-radio-button [value]="false">Fichier</mat-radio-button>
+        </mat-radio-group>
+
+        <mat-form-field appearance="outline">
+            <input matInput placeholder="nom" formControlName="name">
+        </mat-form-field>
+    </div>
+    <div class="modal-footer">
+        <button mat-dialog-close class="btn-white">Annuler</button>
+        <button class="btn-blue" type="submit" [disabled]="!formItem.valid">OK</button>
+    </div>
+</form>
