@@ -11,7 +11,7 @@ The up-to-date version of this document is located on the main branch, follow [t
 ## Table of Contents
    * [Goals Realized](#goals-realized)
    * [Project Structure](#project-structure)
-   * [View Demo On FireBase](https://oodrive-files-manager.firebaseapp.com)
+   * [View Demo On FireBase](https://oodrive-files-manager.firebaseapp.com) (See ReadMe before - environement.prod)
 
 ## Goals Realized
 - All the features that have developed 
