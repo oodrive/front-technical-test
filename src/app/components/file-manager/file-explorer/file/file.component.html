@@ -1,0 +1,9 @@
+<div class="col-md-2 col-sm-6 item" (dblclick)="navigate()" (click)="select()" >
+	<fa-icon
+			[icon]="file.folder ? 'folder' : 'file'"
+			[ngClass]="file.folder ? 'folder' : 'file'"
+			[class]="(isSelected$ | async) ? 'selected' : ''"
+			size="7x"
+	></fa-icon>
+	<p class="item-title">{{ file.name }}</p>
+</div>

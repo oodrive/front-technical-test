@@ -43,7 +43,7 @@
     "comment-format": [true, "check-space"],
     "new-parens": true,
     "object-literal-shorthand": true,
-    "ban": [true, ["alert"], ["confirm"], ["prompt"]],
+    "ban": [true, ["alert"], ["prompt"]],
     "eofline": true,
     "linebreak-style": [true, "LF"],
 

@@ -1,0 +1,17 @@
+<p>Upload File</p>
+<form enctype="multipart/form-data">
+	<div class="form-group">
+		<div class="dropzone-wrapper">
+			<div class="dropzone-desc">
+				<p>Choose file or drag it here.</p>
+			</div>
+			<input type="file"
+				   name="file"
+				   class="dropzone"
+				   id="file"
+				   multiple
+				   [(ngModel)]="toUpload"
+				   (change)="upload($event.target.files)">
+		</div>
+	</div>
+</form>

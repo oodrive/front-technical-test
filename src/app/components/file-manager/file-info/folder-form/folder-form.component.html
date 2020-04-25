@@ -1,0 +1,30 @@
+<form #form="ngForm" (submit)="createItem()">
+	<div class="form-group">
+		<label for="name">Name</label>
+		<input type="text"
+			   required
+			   class="form-control"
+			   id="name"
+			   name="name"
+			   [(ngModel)]="file.name">
+	</div>
+
+	<div class="form-group">
+		<label for="folder">Type</label>
+		<select class="form-control"
+				[(ngModel)]="file.folder"
+				required
+				name="folder"
+				id="folder">
+			<option [ngValue]="true">Folder</option>
+			<option [ngValue]="false">File</option>
+		</select>
+	</div>
+
+	<div class="form-group">
+		<button type="submit"
+				[disabled]="!form.valid"
+				class="btn btn-outline-info col-12"
+		>New {{ file.folder ? 'Folder' : 'File' }}</button>
+	</div>
+</form>

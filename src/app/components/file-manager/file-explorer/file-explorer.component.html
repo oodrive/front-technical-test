@@ -1,0 +1,11 @@
+<div class="row">
+	<div *ngIf="files && files.length else empty" class="col-12">
+		<div class="row">
+			<fl-file *ngFor="let file of files" [file]="file"></fl-file>
+		</div>
+	</div>
+
+	<ng-template #empty>
+		<p>Emty folder</p>
+	</ng-template>
+</div>

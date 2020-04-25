@@ -1,0 +1,14 @@
+<div class="row">
+	<div class="col-md-12">
+		<fl-file-form *ngIf="file.id" [file]="file"></fl-file-form>
+		<hr class="hr-text" *ngIf="file.id">
+
+		<fl-folder-form></fl-folder-form>
+		<hr class="hr-text">
+
+		<fl-download *ngIf="file.id && !file.folder" [file]="file"></fl-download>
+		<hr class="hr-text" *ngIf="file.id && !file.folder">
+
+		<fl-upload [file]="file"></fl-upload>
+	</div>
+</div>
