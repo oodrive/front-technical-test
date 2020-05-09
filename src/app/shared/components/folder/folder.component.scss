@@ -1,0 +1,15 @@
+.folder-wrapper {
+  .folder {
+    margin: 1em;
+    .file-icon {
+      margin: 16px;
+      .fa-lg {
+        font-size: 10em;
+      }
+    }
+    .file-name {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
