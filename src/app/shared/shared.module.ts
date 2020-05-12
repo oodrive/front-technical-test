@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FolderComponent } from './components/folder/folder.component';
 import { FileFilterPipe } from './pipes/file-filter.pipe';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+
+const PrimeNgModules = [ContextMenuModule, ButtonModule, DialogModule, BreadcrumbModule];
 
 @NgModule({
-  declarations: [FolderComponent, FileFilterPipe],
-  imports: [CommonModule, FormsModule],
-  exports: [FolderComponent],
+  declarations: [FileFilterPipe],
+  imports: [CommonModule, FormsModule, PrimeNgModules],
+  exports: [FormsModule, FileFilterPipe, PrimeNgModules],
 })
 export class SharedModule {}

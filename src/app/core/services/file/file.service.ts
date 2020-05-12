@@ -10,15 +10,11 @@ import { File } from '../../models/file.model';
 export class FileService {
   constructor(private httpClient: HttpClient) {}
 
-  /**
-   * getItems
-   *
-   */
   public getItems(folderId?: string): Observable<File[]> {
     const url = `/api/items`;
     let params = new HttpParams();
     if (folderId) {
-      params = params.set('folderId', folderId);
+      params = params.set('parentId', folderId);
     }
     return this.httpClient
       .get<any[]>(url, { params })
@@ -33,5 +29,36 @@ export class FileService {
           }))
         )
       );
+  }
+
+  public downloadFile(file: File): Observable<any> {
+    const url = `/api/items/${file.id}`;
+    return this.httpClient.get(url);
+  }
+
+  public removeFile(file: File): Observable<any> {
+    const url = `/api/items/${file.id}`;
+    return this.httpClient.delete(url);
+  }
+
+  public renameFile(file: File): Observable<File> {
+    const url = `/api/items/${file.id}`;
+    const body = { name: file.name };
+    return this.httpClient.patch<File>(url, body);
+  }
+
+  public moveFile(file: File): Observable<File> {
+    const url = `/api/items/${file.id}`;
+    const body = { parentId: file.parentId };
+    return this.httpClient.patch<File>(url, body);
+  }
+
+  public createFolder(name: string, parentId?: string): Observable<File> {
+    const url = `/api/items`;
+    let params = new HttpParams();
+    if (parentId) {
+      params = params.set('parentId', parentId);
+    }
+    return this.httpClient.post<File>(url, { name, folder: true }, { params });
   }
 }

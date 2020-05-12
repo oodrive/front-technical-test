@@ -1,0 +1,60 @@
+<div class="folder-wrapper">
+    <div class="header">
+        <input id="input" type="text" size="30" pInputText [(ngModel)]="textFilter" placeholder="Search"> 
+        <div class="action-list">
+            <p-button *ngFor="let action of displayedActions" [icon]="action.icon" [label]="action.label"
+                (onClick)="action.command(this.selectedItem)"></p-button>
+        </div>
+    </div>
+    <div class="content">
+        <ng-container *ngIf="folderList.length">
+            <h3>Folder List</h3>
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6 folder" *ngFor="let item of folderList | fileFilter:textFilter"
+                    (click)="onSelectFolder(item)"
+                    [ngClass]="{'selected': selectedItem && item.id === selectedItem.id}">
+                    <diV class="file-icon"><i class="fal fa-lg fa-folder"></i></diV>
+                    <h4 class="file-name">{{item.name}}</h4>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="fileList.length">
+            <h3>File List</h3>
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6 folder" *ngFor="let item of fileList | fileFilter:textFilter"
+                    (click)="onSelectFile(item)" [ngClass]="{'selected': selectedItem && item.id === selectedItem.id}">
+                    <diV class="file-icon"><i class="fal fa-lg" [ngClass]="getExtensions(item)"></i></diV>
+                    <h4 class="file-name">{{item.name}}</h4>
+                </div>
+            </div>
+        </ng-container>
+
+
+    </div>
+</div>
+<!-- TODO
+<p-contextMenu #content [model]="defaultActions"></p-contextMenu>
+<p-contextMenu #folder [model]="folderActions"></p-contextMenu>
+<p-contextMenu #file [model]="fileActions"></p-contextMenu> -->
+
+<p-dialog header="Rename" [(visible)]="renameDialog" [modal]="true">
+    <p>
+        <input id="input" type="text" size="30" pInputText [(ngModel)]="newName" placeholder="rename file"> 
+    </p>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="confirmRename()" label="Yes"></button>
+        <button type="button" pButton icon="pi pi-times" (click)="renameDialog=false" label="No"
+            class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>
+
+<p-dialog header="Rename" [(visible)]="creationDialog" [modal]="true">
+    <p>
+        <input id="input" type="text" size="30" pInputText [(ngModel)]="newName" placeholder="new folder name"> 
+    </p>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="confirmCreation()" label="Yes"></button>
+        <button type="button" pButton icon="pi pi-times" (click)="creationDialog=false" label="No"
+            class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>

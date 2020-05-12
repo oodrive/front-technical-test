@@ -1,4 +1,11 @@
 .folder-wrapper {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    p-button {
+      margin: 0 0.5em;
+    }
+  }
   .folder {
     margin: 1em;
     .file-icon {
@@ -8,8 +15,7 @@
       }
     }
     .file-name {
-      display: flex;
-      justify-content: center;
+      margin: 0 1em;
     }
   }
 }

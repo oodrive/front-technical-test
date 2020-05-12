@@ -16,6 +16,6 @@
 </div>
 
 <div class="content" role="main">
+  <p-breadcrumb [model]="items" [home]="home" (onItemClick)="onSelectFolder($event)"></p-breadcrumb>
   <router-outlet></router-outlet>
-  <app-folder [items]="items"></app-folder>
 </div>

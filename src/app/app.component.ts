@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FileService } from './core/services/file/file.service';
-import { File } from './core/models/file.model';
+import { MenuItem } from 'primeng/api/menuitem';
+import { Store, select } from '@ngrx/store';
+import { State, getFolderTree } from './features/folder-explorer/state/folder-explorer.reducer';
+import { openFolder } from './features/folder-explorer/state/folder-explorer.actions';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +11,39 @@ import { File } from './core/models/file.model';
 })
 export class AppComponent implements OnInit {
   title = 'front-technical-test';
-  items: File[] = [];
+  items: MenuItem[] = [
+    // { label: 'Categories' },
+    // { label: 'Sports' },
+    // { label: 'Football' },
+    // { label: 'Countries' },
+    // { label: 'Spain' },
+    // { label: 'F.C. Barcelona' },
+    // { label: 'Squad' },
+    // {
+    //   label: 'Lionel Messi',
+    //   url: 'https://en.wikipedia.org/wiki/Lionel_Messi',
+    //   icon: 'pi pi-external-link',
+    // },
+  ];
 
-  constructor(private fileService: FileService) {}
+  home: MenuItem;
+
+  constructor(private store: Store<State>) {}
 
   ngOnInit() {
-    this.fileService.getItems().subscribe((items) => {
-      this.items = items;
+    this.store.pipe(select(getFolderTree)).subscribe((folderTree) => {
+      console.log(folderTree);
+      const [folderRoot, ...tree] = folderTree;
+      this.home = { icon: 'pi pi-home', label: folderRoot.name, id: folderRoot.id };
+      this.items = tree.map((folder) => ({
+        label: folder.name,
+        id: folder.id,
+        parentId: folder.parentId,
+      }));
     });
+  }
+
+  onSelectFolder(event) {
+    this.store.dispatch(openFolder(event.item));
   }
 }
