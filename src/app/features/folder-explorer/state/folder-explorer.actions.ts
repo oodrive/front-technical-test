@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { File } from 'src/app/core/models/file.model';
+import { IFile } from 'src/app/core/models/file.model';
 
 export enum actionTypes {
   getFiles = '[File Explorer] Get Files',
@@ -17,25 +17,25 @@ export enum actionTypes {
   downloadFile = '[File Explorer] Download File',
 }
 
-export const getFiles = createAction(actionTypes.getFiles, props<File>());
+export const getFiles = createAction(actionTypes.getFiles, props<IFile>());
 export const getFilesSuccess = createAction(
   actionTypes.getFilesSuccess,
-  props<{ payload: File[] }>()
+  props<{ payload: IFile[] }>()
 );
-export const openFolder = createAction(actionTypes.openFolder, props<File>());
-export const renameFile = createAction(actionTypes.renameFile, props<File>());
+export const openFolder = createAction(actionTypes.openFolder, props<IFile>());
+export const renameFile = createAction(actionTypes.renameFile, props<IFile>());
 export const renameFileSuccess = createAction(
   actionTypes.renameFileSuccess,
-  props<{ file: File }>()
+  props<{ file: IFile }>()
 );
 export const addFolder = createAction(
   actionTypes.addFolder,
-  props<{ parentFolder: File; name: string }>()
+  props<{ parentFolder: IFile; name: string }>()
 );
-export const addFolderSuccess = createAction(actionTypes.addFolderSuccess, props<{ file: File }>());
-export const copyFile = createAction(actionTypes.copyFile, props<{ file: File }>());
-export const pasteFile = createAction(actionTypes.pasteFile, props<File>());
-export const pasteFileSuccess = createAction(actionTypes.pasteFileSuccess, props<{ file: File }>());
-export const removeFile = createAction(actionTypes.removeFile, props<File>());
-export const removeFileSuccess = createAction(actionTypes.removeFileSuccess, props<{ file: File }>());
-export const downloadFile = createAction(actionTypes.downloadFile, props<File>());
+export const addFolderSuccess = createAction(actionTypes.addFolderSuccess, props<{ file: IFile }>());
+export const copyFile = createAction(actionTypes.copyFile, props<{ file: IFile }>());
+export const pasteFile = createAction(actionTypes.pasteFile, props<IFile>());
+export const pasteFileSuccess = createAction(actionTypes.pasteFileSuccess, props<{ file: IFile }>());
+export const removeFile = createAction(actionTypes.removeFile, props<IFile>());
+export const removeFileSuccess = createAction(actionTypes.removeFileSuccess, props<{ file: IFile }>());
+export const downloadFile = createAction(actionTypes.downloadFile, props<IFile>());

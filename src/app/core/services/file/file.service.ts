@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { File } from '../../models/file.model';
+import { IFile } from '../../models/file.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { File } from '../../models/file.model';
 export class FileService {
   constructor(private httpClient: HttpClient) {}
 
-  public getItems(folderId?: string): Observable<File[]> {
+  public getItems(folderId?: string): Observable<IFile[]> {
     const url = `/api/items`;
     let params = new HttpParams();
     if (folderId) {
@@ -31,34 +31,34 @@ export class FileService {
       );
   }
 
-  public downloadFile(file: File): Observable<any> {
+  public downloadFile(file: IFile): Observable<any> {
     const url = `/api/items/${file.id}`;
     return this.httpClient.get(url);
   }
 
-  public removeFile(file: File): Observable<any> {
+  public removeFile(file: IFile): Observable<any> {
     const url = `/api/items/${file.id}`;
     return this.httpClient.delete(url);
   }
 
-  public renameFile(file: File): Observable<File> {
+  public renameFile(file: IFile): Observable<IFile> {
     const url = `/api/items/${file.id}`;
     const body = { name: file.name };
-    return this.httpClient.patch<File>(url, body);
+    return this.httpClient.patch<IFile>(url, body);
   }
 
-  public moveFile(file: File): Observable<File> {
+  public moveFile(file: IFile): Observable<IFile> {
     const url = `/api/items/${file.id}`;
     const body = { parentId: file.parentId };
-    return this.httpClient.patch<File>(url, body);
+    return this.httpClient.patch<IFile>(url, body);
   }
 
-  public createFolder(name: string, parentId?: string): Observable<File> {
+  public createFolder(name: string, parentId?: string): Observable<IFile> {
     const url = `/api/items`;
     let params = new HttpParams();
     if (parentId) {
       params = params.set('parentId', parentId);
     }
-    return this.httpClient.post<File>(url, { name, folder: true }, { params });
+    return this.httpClient.post<IFile>(url, { name, folder: true }, { params });
   }
 }

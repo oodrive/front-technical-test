@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, mergeMap, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { File } from 'src/app/core/models/file.model';
+import { IFile } from 'src/app/core/models/file.model';
 import { FileService } from 'src/app/core/services/file/file.service';
 import { actionTypes } from './folder-explorer.actions';
 
@@ -17,10 +17,10 @@ export class FileExplorerEffects {
   loadFiles$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actionTypes.getFiles),
-      mergeMap((folder: File) =>
+      mergeMap((folder: IFile) =>
         this.fileService
           .getItems(folder.id)
-          .pipe(map((files: File[]) => ({ type: actionTypes.getFilesSuccess, payload: files })))
+          .pipe(map((files: IFile[]) => ({ type: actionTypes.getFilesSuccess, payload: files })))
       )
     )
   );
@@ -29,7 +29,7 @@ export class FileExplorerEffects {
     () =>
       this.actions$.pipe(
         ofType(actionTypes.openFolder),
-        switchMap((folder: File) => this.router.navigate(['my-folder', folder.id]))
+        switchMap((folder: IFile) => this.router.navigate(['my-folder', folder.id]))
       ),
     { dispatch: false }
   );
@@ -37,7 +37,7 @@ export class FileExplorerEffects {
   renameFile$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actionTypes.renameFile),
-      mergeMap((folder: File) =>
+      mergeMap((folder: IFile) =>
         this.fileService
           .renameFile(folder)
           .pipe(map((file) => ({ type: actionTypes.renameFileSuccess, file })))
@@ -48,7 +48,7 @@ export class FileExplorerEffects {
   addFolder$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actionTypes.addFolder),
-      mergeMap((payload: { parentFolder: File; name: string }) =>
+      mergeMap((payload: { parentFolder: IFile; name: string }) =>
         this.fileService.createFolder(payload.name, payload.parentFolder.id).pipe(
           map(() => ({
             type: actionTypes.addFolderSuccess,
@@ -67,7 +67,7 @@ export class FileExplorerEffects {
   copyPasteFile$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actionTypes.pasteFile),
-      mergeMap((file: File) =>
+      mergeMap((file: IFile) =>
         this.fileService
           .moveFile(file)
           .pipe(map(() => ({ type: actionTypes.pasteFileSuccess, file })))
@@ -78,7 +78,7 @@ export class FileExplorerEffects {
   removeFile$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actionTypes.removeFile),
-      mergeMap((file: File) =>
+      mergeMap((file: IFile) =>
         this.fileService
           .removeFile(file)
           .pipe(map(() => ({ type: actionTypes.removeFileSuccess, file })))

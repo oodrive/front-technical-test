@@ -1,12 +1,12 @@
 import { Action, createReducer, on, createSelector, createFeatureSelector } from '@ngrx/store';
 import * as FileExplorerActions from './folder-explorer.actions';
-import { File } from 'src/app/core/models/file.model';
+import { IFile } from 'src/app/core/models/file.model';
 
 export interface State {
-  folderTree: File[];
-  fileList: File[];
-  selectFolder: File;
-  copiedFile: File;
+  folderTree: IFile[];
+  fileList: IFile[];
+  selectFolder: IFile;
+  copiedFile: IFile;
 }
 
 export const initialState: State = {
@@ -63,7 +63,7 @@ export const getFolderTree = createSelector(selectFeature, (state: State) => sta
 export const getFileList = createSelector(selectFeature, (state: State) => state.fileList);
 export const getCopiedFile = createSelector(selectFeature, (state: State) => state.copiedFile);
 
-const setFolderTree = (folderList: File[], folder: File) => {
+const setFolderTree = (folderList: IFile[], folder: IFile) => {
   const index = folderList.findIndex((fd) => fd.id === folder.id);
   if (index > -1) {
     // selelct folde from breadcrumb

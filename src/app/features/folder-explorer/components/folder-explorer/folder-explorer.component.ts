@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FileService } from 'src/app/core/services/file/file.service';
-import { File } from 'src/app/core/models/file.model';
+import { IFile } from 'src/app/core/models/file.model';
 import { MenuItem } from 'primeng/api';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -26,13 +26,13 @@ import {
   styleUrls: ['./folder-explorer.component.scss'],
 })
 export class FolderExplorerComponent implements OnInit {
-  currentFolder: File;
+  currentFolder: IFile;
 
   textFilter: string;
-  folderList: File[] = [];
-  fileList: File[] = [];
+  folderList: IFile[] = [];
+  fileList: IFile[] = [];
 
-  selectedItem: File;
+  selectedItem: IFile;
   displayedActions: MenuItem[] = [];
 
   defaultActions: MenuItem[] = [
@@ -83,7 +83,7 @@ export class FolderExplorerComponent implements OnInit {
     {
       label: 'Open Folder',
       icon: 'fal fa-folder-open',
-      command: (folder: File) => this.openFolder(folder),
+      command: (folder: IFile) => this.openFolder(folder),
     },
     {
       label: 'Rename',
@@ -106,7 +106,7 @@ export class FolderExplorerComponent implements OnInit {
   creationDialog: boolean;
   newName: string;
 
-  copiedFile: File;
+  copiedFile: IFile;
 
   constructor(private fileService: FileService, private store: Store<State>) {}
 
@@ -119,14 +119,14 @@ export class FolderExplorerComponent implements OnInit {
     this.store
       .pipe(
         select(getFolderTree),
-        map((folders: File[]) => {
+        map((folders: IFile[]) => {
           // current folder is the last folder in the folder tree
           this.currentFolder = folders[folders.length - 1];
           return this.currentFolder;
         })
       )
-      .subscribe((folder: File) => this.store.dispatch(getFiles(folder)));
-    this.store.pipe(select(getCopiedFile)).subscribe((copiedfile: File) => {
+      .subscribe((folder: IFile) => this.store.dispatch(getFiles(folder)));
+    this.store.pipe(select(getCopiedFile)).subscribe((copiedfile: IFile) => {
       this.copiedFile = copiedfile;
       const pasteAction = this.defaultActions.find((action) => action.label === 'Paste');
       // TODO if copied file in the same folder, paste action is disabled
@@ -134,7 +134,7 @@ export class FolderExplorerComponent implements OnInit {
     });
   }
 
-  onSelectFolder(item: File) {
+  onSelectFolder(item: IFile) {
     if (this.selectedItem && this.selectedItem.id === item.id) {
       this.selectedItem = null;
       this.displayedActions = this.defaultActions;
@@ -144,7 +144,7 @@ export class FolderExplorerComponent implements OnInit {
     }
   }
 
-  onSelectFile(item: File) {
+  onSelectFile(item: IFile) {
     if (this.selectedItem && this.selectedItem.id === item.id) {
       this.selectedItem = null;
       this.displayedActions = this.defaultActions;
@@ -154,7 +154,7 @@ export class FolderExplorerComponent implements OnInit {
     }
   }
 
-  getExtensions(item: File): string {
+  getExtensions(item: IFile): string {
     const extension = item.name.split('.').pop();
     let type: string;
     switch (extension) {
@@ -189,7 +189,7 @@ export class FolderExplorerComponent implements OnInit {
     return `fa-file-${type}`;
   }
 
-  downloadfile(file: File) {
+  downloadfile(file: IFile) {
     this.fileService.downloadFile(file).subscribe(
       (data) => console.log('download success'),
       (err) => console.log('download fail')
@@ -200,7 +200,7 @@ export class FolderExplorerComponent implements OnInit {
     this.store.dispatch(openFolder({ ...folder, parentId: this.currentFolder.id }));
   }
 
-  renameItem(file: File) {
+  renameItem(file: IFile) {
     this.renameDialog = true;
     this.newName = file.name;
   }
@@ -229,7 +229,7 @@ export class FolderExplorerComponent implements OnInit {
     }
   }
 
-  copyFile(file: File) {
+  copyFile(file: IFile) {
     this.store.dispatch(copyFile({ file }));
   }
 
@@ -237,7 +237,7 @@ export class FolderExplorerComponent implements OnInit {
     this.store.dispatch(pasteFile({ ...this.copiedFile, parentId: this.currentFolder.id }));
   }
 
-  removeFile(file: File) {
+  removeFile(file: IFile) {
     this.store.dispatch(removeFile(file));
   }
 }

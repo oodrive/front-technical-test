@@ -12,7 +12,6 @@ import { openFolder } from './features/folder-explorer/state/folder-explorer.act
 export class AppComponent implements OnInit {
   title = 'front-technical-test';
   items: MenuItem[] = [];
-
   home: MenuItem;
 
   constructor(private store: Store<State>) {}
