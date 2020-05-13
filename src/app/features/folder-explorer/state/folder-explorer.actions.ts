@@ -9,6 +9,8 @@ export enum actionTypes {
   renameFileSuccess = '[File Explorer] Rename File Success',
   addFolder = '[File Explorer] Add Folder',
   addFolderSuccess = '[File Explorer] Add Folder Success',
+  importFiles = '[File Explorer] Import Files',
+  importFilesSuccess = '[File Explorer] Import Files Success',
   copyFile = '[File Explorer] Copy File',
   pasteFile = '[File Explorer] Paste File',
   pasteFileSuccess = '[File Explorer] Paste File Success',
@@ -20,7 +22,7 @@ export enum actionTypes {
 export const getFiles = createAction(actionTypes.getFiles, props<IFile>());
 export const getFilesSuccess = createAction(
   actionTypes.getFilesSuccess,
-  props<{ payload: IFile[] }>()
+  props<{ files: IFile[] }>()
 );
 export const openFolder = createAction(actionTypes.openFolder, props<IFile>());
 export const renameFile = createAction(actionTypes.renameFile, props<IFile>());
@@ -32,10 +34,21 @@ export const addFolder = createAction(
   actionTypes.addFolder,
   props<{ parentFolder: IFile; name: string }>()
 );
-export const addFolderSuccess = createAction(actionTypes.addFolderSuccess, props<{ file: IFile }>());
+export const addFolderSuccess = createAction(actionTypes.addFolderSuccess);
+export const importFiles = createAction(
+  actionTypes.importFiles,
+  props<{ parentFolder: IFile; names: string[] }>()
+);
+export const importFilesSuccess = createAction(actionTypes.importFilesSuccess);
 export const copyFile = createAction(actionTypes.copyFile, props<{ file: IFile }>());
 export const pasteFile = createAction(actionTypes.pasteFile, props<IFile>());
-export const pasteFileSuccess = createAction(actionTypes.pasteFileSuccess, props<{ file: IFile }>());
+export const pasteFileSuccess = createAction(
+  actionTypes.pasteFileSuccess,
+  props<{ file: IFile }>()
+);
 export const removeFile = createAction(actionTypes.removeFile, props<IFile>());
-export const removeFileSuccess = createAction(actionTypes.removeFileSuccess, props<{ file: IFile }>());
+export const removeFileSuccess = createAction(
+  actionTypes.removeFileSuccess,
+  props<{ file: IFile }>()
+);
 export const downloadFile = createAction(actionTypes.downloadFile, props<IFile>());

@@ -6,8 +6,15 @@ import { ContextMenuModule } from 'primeng/contextmenu';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { FileUploadModule } from 'primeng/fileupload';
 
-const PrimeNgModules = [ContextMenuModule, ButtonModule, DialogModule, BreadcrumbModule];
+const PrimeNgModules = [
+  ContextMenuModule,
+  ButtonModule,
+  DialogModule,
+  BreadcrumbModule,
+  FileUploadModule,
+];
 
 @NgModule({
   declarations: [FileFilterPipe],

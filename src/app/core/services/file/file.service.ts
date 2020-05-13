@@ -55,10 +55,21 @@ export class FileService {
 
   public createFolder(name: string, parentId?: string): Observable<IFile> {
     const url = `/api/items`;
+    const body = { name, folder: true };
     let params = new HttpParams();
     if (parentId) {
       params = params.set('parentId', parentId);
     }
-    return this.httpClient.post<IFile>(url, { name, folder: true }, { params });
+    return this.httpClient.post<IFile>(url, body, { params });
+  }
+
+  public importFile(name: string, parentId?: string): Observable<IFile> {
+    const url = `/api/items`;
+    const body = { name, folder: false };
+    let params = new HttpParams();
+    if (parentId) {
+      params = params.set('parentId', parentId);
+    }
+    return this.httpClient.post<IFile>(url, body, { params });
   }
 }

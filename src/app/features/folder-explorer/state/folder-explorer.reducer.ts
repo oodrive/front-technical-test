@@ -5,6 +5,7 @@ import { IFile } from 'src/app/core/models/file.model';
 export interface State {
   folderTree: IFile[];
   fileList: IFile[];
+  importedFiles: IFile[];
   selectFolder: IFile;
   copiedFile: IFile;
 }
@@ -14,6 +15,7 @@ export const initialState: State = {
     { id: null, name: 'my-folder', folder: true, creation: new Date(), modification: new Date() },
   ],
   fileList: [],
+  importedFiles: [],
   selectFolder: null,
   copiedFile: null,
 };
@@ -23,7 +25,7 @@ const fileExplorerReducer = createReducer(
   on(FileExplorerActions.getFiles, (state) => ({ ...state })),
   on(FileExplorerActions.getFilesSuccess, (state, action) => ({
     ...state,
-    fileList: action.payload,
+    fileList: action.files,
   })),
   on(FileExplorerActions.openFolder, (state, action) => ({
     ...state,
@@ -35,9 +37,30 @@ const fileExplorerReducer = createReducer(
       file.id === action.file.id ? { ...file, ...action.file } : file
     ),
   })),
-  on(FileExplorerActions.addFolderSuccess, (state, action) => ({
+  on(FileExplorerActions.addFolder, (state, action) => ({
     ...state,
-    fileList: [...state.fileList, action.file],
+    importedFiles: [{ name: action.name.split('/')[0], folder: true, id: null }],
+    selectFolder: action.parentFolder,
+  })),
+  on(FileExplorerActions.addFolderSuccess, (state) => ({
+    ...state,
+    fileList: [...state.fileList, ...state.importedFiles],
+    importedFiles: [],
+  })),
+  on(FileExplorerActions.importFiles, (state, action) => ({
+    ...state,
+    importedFiles: action.names.map((name) => ({
+      name,
+      id: null,
+      parentId: action.parentFolder.id,
+      folder: false,
+    })),
+    selectFolder: action.parentFolder,
+  })),
+  on(FileExplorerActions.importFilesSuccess, (state) => ({
+    ...state,
+    fileList: [...state.fileList, ...state.importedFiles],
+    importedFiles: [],
   })),
   on(FileExplorerActions.copyFile, (state, action) => ({ ...state, copiedFile: action.file })),
   on(FileExplorerActions.pasteFileSuccess, (state, action) => ({
@@ -47,7 +70,7 @@ const fileExplorerReducer = createReducer(
   })),
   on(FileExplorerActions.removeFileSuccess, (state, action) => ({
     ...state,
-    fileList: state.fileList.filter(file => file.id !== action.file.id),
+    fileList: state.fileList.filter((file) => file.id !== action.file.id),
   }))
 );
 
@@ -72,3 +95,7 @@ const setFolderTree = (folderList: IFile[], folder: IFile) => {
   // add new folder
   return [...folderList, folder];
 };
+const addFiles = (parentFolder: IFile, fileList: IFile[], newFileList: IFile[]): IFile[] => [
+  ...fileList,
+  ...newFileList.map((file) => ({ ...file, parentId: parentFolder.id })),
+];

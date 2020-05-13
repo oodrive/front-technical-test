@@ -1,6 +1,6 @@
 <div class="folder-wrapper">
     <div class="header">
-        <input id="input" type="text" size="30" pInputText [(ngModel)]="textFilter" placeholder="Search"> 
+        <input id="input" type="text" size="30" pInputText [(ngModel)]="textFilter" placeholder="Search">
         <div class="action-list">
             <p-button *ngFor="let action of displayedActions" [icon]="action.icon" [label]="action.label"
                 (onClick)="action.command(this.selectedItem)" [disabled]="action.disabled"></p-button>
@@ -37,7 +37,7 @@
 
 <p-dialog header="Rename" [(visible)]="renameDialog" [modal]="true">
     <p>
-        <input id="input" type="text" size="30" pInputText [(ngModel)]="newName" placeholder="rename file"> 
+        <input id="input" type="text" size="30" pInputText [(ngModel)]="newName" placeholder="rename file">
     </p>
     <p-footer>
         <button type="button" pButton icon="pi pi-check" (click)="confirmRename()" label="Yes"></button>
@@ -48,11 +48,18 @@
 
 <p-dialog header="Rename" [(visible)]="creationDialog" [modal]="true">
     <p>
-        <input id="input" type="text" size="30" pInputText [(ngModel)]="newName" placeholder="new folder name"> 
+        <input id="input" type="text" size="30" pInputText [(ngModel)]="newName" placeholder="new folder name">
     </p>
     <p-footer>
         <button type="button" pButton icon="pi pi-check" (click)="confirmCreation()" label="Yes"></button>
         <button type="button" pButton icon="pi pi-times" (click)="creationDialog=false" label="No"
             class="ui-button-secondary"></button>
     </p-footer>
+</p-dialog>
+
+
+<p-dialog header="Upload" [(visible)]="uploadDialog" [modal]="true">
+    <p-fileUpload name="demo[]" customUpload="true" (uploadHandler)="onUpload($event)" (onClear)="uploadDialog = false"
+        multiple="multiple" accept="image/*" maxFileSize="1000000">
+    </p-fileUpload>
 </p-dialog>

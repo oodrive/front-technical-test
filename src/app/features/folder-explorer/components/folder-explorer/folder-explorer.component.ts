@@ -18,6 +18,7 @@ import {
   copyFile,
   pasteFile,
   removeFile,
+  importFiles,
 } from '../../state/folder-explorer.actions';
 
 @Component({
@@ -39,17 +40,12 @@ export class FolderExplorerComponent implements OnInit {
     {
       label: 'Create Folder',
       icon: 'fal fa-folder-plus',
-      command: (folder) => {
-        this.createFolder();
-      },
+      command: (folder) => this.createFolder(),
     },
     {
-      label: 'Import Files',
+      label: 'Import Folder/Files',
       icon: 'fal fa-file-upload',
-    },
-    {
-      label: 'Import Folders',
-      icon: 'fal fa-folder-upload',
+      command: () => this.importFile(),
     },
     {
       label: 'Paste',
@@ -102,6 +98,7 @@ export class FolderExplorerComponent implements OnInit {
     },
   ];
 
+  uploadDialog: boolean;
   renameDialog: boolean;
   creationDialog: boolean;
   newName: string;
@@ -213,16 +210,13 @@ export class FolderExplorerComponent implements OnInit {
     }
   }
 
-  moveitem() {
-    this.fileService.moveFile(this.selectedItem);
-  }
-
   createFolder() {
     this.creationDialog = true;
     this.newName = '';
   }
 
   confirmCreation() {
+    // TODO should support multipart
     if (this.newName) {
       this.creationDialog = false;
       this.store.dispatch(addFolder({ parentFolder: this.currentFolder, name: this.newName }));
@@ -239,5 +233,15 @@ export class FolderExplorerComponent implements OnInit {
 
   removeFile(file: IFile) {
     this.store.dispatch(removeFile(file));
+  }
+
+  importFile() {
+    this.uploadDialog = true;
+  }
+
+  onUpload(event) {
+    const filesToUpload: string[] = event.files.map((file) => file.name);
+    this.store.dispatch(importFiles({ parentFolder: this.currentFolder, names: filesToUpload }));
+    this.uploadDialog = false;
   }
 }
