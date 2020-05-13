@@ -44,6 +44,10 @@ const fileExplorerReducer = createReducer(
     ...state,
     copiedFile: null,
     fileList: [...state.fileList, action.file],
+  })),
+  on(FileExplorerActions.removeFileSuccess, (state, action) => ({
+    ...state,
+    fileList: state.fileList.filter(file => file.id !== action.file.id),
   }))
 );
 

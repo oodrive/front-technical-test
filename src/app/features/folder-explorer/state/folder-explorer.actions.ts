@@ -12,6 +12,8 @@ export enum actionTypes {
   copyFile = '[File Explorer] Copy File',
   pasteFile = '[File Explorer] Paste File',
   pasteFileSuccess = '[File Explorer] Paste File Success',
+  removeFile = '[File Explorer] Remove File',
+  removeFileSuccess = '[File Explorer] Remove File Success',
   downloadFile = '[File Explorer] Download File',
 }
 
@@ -34,4 +36,6 @@ export const addFolderSuccess = createAction(actionTypes.addFolderSuccess, props
 export const copyFile = createAction(actionTypes.copyFile, props<{ file: File }>());
 export const pasteFile = createAction(actionTypes.pasteFile, props<File>());
 export const pasteFileSuccess = createAction(actionTypes.pasteFileSuccess, props<{ file: File }>());
+export const removeFile = createAction(actionTypes.removeFile, props<File>());
+export const removeFileSuccess = createAction(actionTypes.removeFileSuccess, props<{ file: File }>());
 export const downloadFile = createAction(actionTypes.downloadFile, props<File>());

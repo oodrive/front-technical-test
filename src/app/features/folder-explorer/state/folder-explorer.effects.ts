@@ -67,9 +67,22 @@ export class FileExplorerEffects {
   copyPasteFile$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actionTypes.pasteFile),
-      mergeMap((file: File) => this.fileService.moveFile(file).pipe(
-        map(() => ({ type: actionTypes.pasteFileSuccess, file }))
-      ))
+      mergeMap((file: File) =>
+        this.fileService
+          .moveFile(file)
+          .pipe(map(() => ({ type: actionTypes.pasteFileSuccess, file })))
+      )
+    )
+  );
+
+  removeFile$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionTypes.removeFile),
+      mergeMap((file: File) =>
+        this.fileService
+          .removeFile(file)
+          .pipe(map(() => ({ type: actionTypes.removeFileSuccess, file })))
+      )
     )
   );
 }

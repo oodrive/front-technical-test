@@ -17,6 +17,7 @@ import {
   addFolder,
   copyFile,
   pasteFile,
+  removeFile,
 } from '../../state/folder-explorer.actions';
 
 @Component({
@@ -53,7 +54,7 @@ export class FolderExplorerComponent implements OnInit {
     {
       label: 'Paste',
       disabled: true,
-      command: () => this.pasteFile()
+      command: () => this.pasteFile(),
     },
   ];
   fileActions: MenuItem[] = [
@@ -75,7 +76,7 @@ export class FolderExplorerComponent implements OnInit {
     {
       label: 'Remove',
       icon: 'fal fa-trash-alt',
-      command: (file) => {},
+      command: (file) => this.removeFile(file),
     },
   ];
   folderActions: MenuItem[] = [
@@ -97,6 +98,7 @@ export class FolderExplorerComponent implements OnInit {
     {
       label: 'Remove',
       icon: 'fal fa-trash-alt',
+      command: (file) => this.removeFile(file),
     },
   ];
 
@@ -232,6 +234,10 @@ export class FolderExplorerComponent implements OnInit {
   }
 
   pasteFile() {
-    this.store.dispatch(pasteFile({...this.copiedFile, parentId: this.currentFolder.id}));
+    this.store.dispatch(pasteFile({ ...this.copiedFile, parentId: this.currentFolder.id }));
+  }
+
+  removeFile(file: File) {
+    this.store.dispatch(removeFile(file));
   }
 }
