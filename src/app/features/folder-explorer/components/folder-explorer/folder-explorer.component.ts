@@ -2,11 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { FileService } from 'src/app/core/services/file/file.service';
 import { File } from 'src/app/core/models/file.model';
 import { MenuItem } from 'primeng/api';
-import { Router } from '@angular/router';
-import { map, mergeMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
-import { State, getFolderTree, getFileList } from '../../state/folder-explorer.reducer';
-import { openFolder, getFiles } from '../../state/folder-explorer.actions';
+import {
+  State,
+  getFolderTree,
+  getFileList,
+  getCopiedFile,
+} from '../../state/folder-explorer.reducer';
+import {
+  openFolder,
+  getFiles,
+  renameFile,
+  addFolder,
+  copyFile,
+  pasteFile,
+} from '../../state/folder-explorer.actions';
 
 @Component({
   selector: 'app-folder-explorer',
@@ -39,6 +50,11 @@ export class FolderExplorerComponent implements OnInit {
       label: 'Import Folders',
       icon: 'fal fa-folder-upload',
     },
+    {
+      label: 'Paste',
+      disabled: true,
+      command: () => this.pasteFile()
+    },
   ];
   fileActions: MenuItem[] = [
     {
@@ -52,9 +68,9 @@ export class FolderExplorerComponent implements OnInit {
       command: (file) => this.renameItem(file),
     },
     {
-      label: 'Move to',
+      label: 'Copy',
       icon: 'fal fa-file-export',
-      command: (file) => {},
+      command: (file) => this.copyFile(file),
     },
     {
       label: 'Remove',
@@ -74,12 +90,9 @@ export class FolderExplorerComponent implements OnInit {
       command: (file) => this.renameItem(file),
     },
     {
-      label: 'Clone',
-      icon: 'fal fa-folders',
-    },
-    {
-      label: 'Move to',
+      label: 'Copy',
       icon: 'fal fa-arrow-right',
+      command: (file) => this.copyFile(file),
     },
     {
       label: 'Remove',
@@ -91,28 +104,32 @@ export class FolderExplorerComponent implements OnInit {
   creationDialog: boolean;
   newName: string;
 
-  constructor(
-    private fileService: FileService,
-    private router: Router,
-    private store: Store<State>
-  ) {}
+  copiedFile: File;
+
+  constructor(private fileService: FileService, private store: Store<State>) {}
 
   ngOnInit() {
     this.store.pipe(select(getFileList)).subscribe((items) => {
-      this.folderList = items.filter((file) => file.folder);
-      this.fileList = items.filter((file) => !file.folder);
+      this.displayedActions = this.defaultActions;
+      this.folderList = items.filter((file) => file && file.folder);
+      this.fileList = items.filter((file) => file && !file.folder);
     });
     this.store
       .pipe(
         select(getFolderTree),
         map((folders: File[]) => {
+          // current folder is the last folder in the folder tree
           this.currentFolder = folders[folders.length - 1];
           return this.currentFolder;
         })
       )
       .subscribe((folder: File) => this.store.dispatch(getFiles(folder)));
-
-    this.displayedActions = this.defaultActions;
+    this.store.pipe(select(getCopiedFile)).subscribe((copiedfile: File) => {
+      this.copiedFile = copiedfile;
+      const pasteAction = this.defaultActions.find((action) => action.label === 'Paste');
+      // TODO if copied file in the same folder, paste action is disabled
+      pasteAction.disabled = !copiedfile;
+    });
   }
 
   onSelectFolder(item: File) {
@@ -179,7 +196,6 @@ export class FolderExplorerComponent implements OnInit {
 
   openFolder(folder) {
     this.store.dispatch(openFolder({ ...folder, parentId: this.currentFolder.id }));
-    this.router.navigate(['my-folder', folder.id]);
   }
 
   renameItem(file: File) {
@@ -190,11 +206,8 @@ export class FolderExplorerComponent implements OnInit {
   confirmRename() {
     if (this.newName) {
       this.renameDialog = false;
-      this.selectedItem.name = this.newName;
-      this.fileService.renameFile(this.selectedItem).subscribe(
-        (data) => console.log('rename success'),
-        (data) => console.log('rename fail')
-      );
+      this.selectedItem = { ...this.selectedItem, name: this.newName };
+      this.store.dispatch(renameFile(this.selectedItem));
     }
   }
 
@@ -210,12 +223,15 @@ export class FolderExplorerComponent implements OnInit {
   confirmCreation() {
     if (this.newName) {
       this.creationDialog = false;
-      this.fileService.createFolder(this.newName, this.currentFolder.id).subscribe(
-        (data) => {
-          this.folderList.push(data);
-        },
-        (data) => console.log('creation fail')
-      );
+      this.store.dispatch(addFolder({ parentFolder: this.currentFolder, name: this.newName }));
     }
+  }
+
+  copyFile(file: File) {
+    this.store.dispatch(copyFile({ file }));
+  }
+
+  pasteFile() {
+    this.store.dispatch(pasteFile({...this.copiedFile, parentId: this.currentFolder.id}));
   }
 }

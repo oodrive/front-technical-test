@@ -29,8 +29,22 @@ const fileExplorerReducer = createReducer(
     ...state,
     folderTree: setFolderTree(state.folderTree, action),
   })),
-  on(FileExplorerActions.copyFile, (state, action) => ({ ...state, copiedFile: action })),
-  on(FileExplorerActions.pasteFile, (state) => ({ ...state, copiedFile: null }))
+  on(FileExplorerActions.renameFileSuccess, (state, action) => ({
+    ...state,
+    fileList: state.fileList.map((file) =>
+      file.id === action.file.id ? { ...file, ...action.file } : file
+    ),
+  })),
+  on(FileExplorerActions.addFolderSuccess, (state, action) => ({
+    ...state,
+    fileList: [...state.fileList, action.file],
+  })),
+  on(FileExplorerActions.copyFile, (state, action) => ({ ...state, copiedFile: action.file })),
+  on(FileExplorerActions.pasteFileSuccess, (state, action) => ({
+    ...state,
+    copiedFile: null,
+    fileList: [...state.fileList, action.file],
+  }))
 );
 
 export function reducer(state: State | undefined, action: Action) {
@@ -43,6 +57,7 @@ export const selectFeature = createFeatureSelector<State>(featureKey);
 
 export const getFolderTree = createSelector(selectFeature, (state: State) => state.folderTree);
 export const getFileList = createSelector(selectFeature, (state: State) => state.fileList);
+export const getCopiedFile = createSelector(selectFeature, (state: State) => state.copiedFile);
 
 const setFolderTree = (folderList: File[], folder: File) => {
   const index = folderList.findIndex((fd) => fd.id === folder.id);
