@@ -15,8 +15,8 @@ const appRoutes : Routes= [
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild(appRoutes),
-    SharedModule
   ],
   providers : [ItemService],
   declarations: [ManageFoldersComponent]
