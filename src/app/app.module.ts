@@ -11,12 +11,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 const appRoutes: Routes = [
 	{
-		path        : 'manage-folders',
+		path        : 'folders',
 		loadChildren: () => import('./manage-folders/manage-folders.module').then(m => m.ManageFoldersModule)
 	},
 	{
 		path      : '**',
-		redirectTo: 'manage-folders'
+		redirectTo: 'folders'
 	}
   ];
 @NgModule({

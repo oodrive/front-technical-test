@@ -27,7 +27,7 @@
             },
             "styles": [
               "src/index.scss",
-              "src/styles.scss"
+              "node_modules/primeflex/primeflex.css"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
