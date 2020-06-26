@@ -25,6 +25,9 @@
             "customWebpackConfig": {
               "path": "./extra-webpack.config.js"
             },
+            "assets": [
+              "src/assets"
+            ],
             "styles": [
               "src/index.scss",
               "node_modules/primeflex/primeflex.css"
