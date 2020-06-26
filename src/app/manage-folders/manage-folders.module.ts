@@ -9,6 +9,10 @@ const appRoutes : Routes= [
     {
       path        : '',
       component : ManageFoldersComponent
+    },
+    {
+      path        : ':parentId',
+      component : ManageFoldersComponent
     }
 ]
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Item } from '../models/item.model';
 import { ItemService } from '../services/item.service';
+import {ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'fl-manage-folders',
@@ -8,31 +9,33 @@ import { ItemService } from '../services/item.service';
   styleUrls: ['./manage-folders.component.css']
 })
 export class ManageFoldersComponent implements OnInit {
-	responsiveOptions = [
-		{
-			breakpoint: '1024px',
-			numVisible: 3,
-			numScroll: 3
-		},
-		{
-			breakpoint: '768px',
-			numVisible: 2,
-			numScroll: 2
-		},
-		{
-			breakpoint: '560px',
-			numVisible: 1,
-			numScroll: 1
-		}
-	];
-
 	folders : Item[] = [];
-  constructor(private itemService : ItemService) { }
+	constructor(private itemService : ItemService,
+	private router : Router,
+	private route : ActivatedRoute) { }
 
   ngOnInit() {
-	  this.itemService.getItems()
-		  .subscribe(arg => this.folders = arg.items);
+	this.route.params.subscribe(
+		params =>{
+			if (params.parentId){
+				this.getItems(params.parentId);
+			}
+			else{
+				this.getItems();
+			}
+		}
+	)
 	  
+	  
+  }
+
+  getItems(parentId?:string){
+	this.itemService.getItems(parentId)
+	.subscribe(arg => this.folders = arg.items);
+  }
+
+  folderSelected(folder:Item){
+	this.router.navigate([`folders/${folder.id}`])
   }
 
 }
