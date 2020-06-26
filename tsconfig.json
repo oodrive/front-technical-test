@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "module": "es2015",
     "lib": ["es2016", "dom"],
     "target": "ES2015",
     "stripInternal": true,
     "newLine": "LF",
+    "module": "esnext",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "moduleResolution": "Node",

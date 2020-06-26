@@ -26,7 +26,8 @@
               "path": "./extra-webpack.config.js"
             },
             "styles": [
-              "src/index.scss"
+              "src/index.scss",
+              "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -63,6 +64,7 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
+            "proxyConfig": "src/proxy/proxy.json",
             "browserTarget": "main:build",
             "host": "0.0.0.0",
             "port": 8080,
