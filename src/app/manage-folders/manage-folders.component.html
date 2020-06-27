@@ -1,17 +1,121 @@
-<div class="p-grid" style="margin-top: .5em">
-    <div class="p-col folder" *ngFor="let folder of folders; let i=index" >
-        <div class="box">
-            <div style="text-align: center;" 
-            *ngIf="folder.folder"
-                    [ngClass]="{'cursor-pointer': folder.folder}" (click)="folderSelected(folder)">
-                <img *ngIf="folder.folder" class="hover-img" src="assets/folder.png" style="display:inline-block;margin:2px 0 2px 2px" width="48">
-            </div>
-            <div style="text-align: center;"  *ngIf="!folder.folder"
-                    [ngClass]="{'cursor-pointer': folder.folder}">
-                <img *ngIf="!folder.folder" src="assets/file.png" style="display:inline-block;margin:2px 0 2px 2px" width="48">
-            </div>
-            <div style="text-align: center;">{{folder.name}}</div>
-         </div>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+<p-toast position="top-right" key="tr"></p-toast>
+<div class="p-grid p-justify-start">
+    <div class="p-col">
+        <p-breadcrumb style="width: 100%;" (onItemClick)="itemClicked($event.item)" 
+[home]="{icon: 'pi pi-home'}"
+[model]="path"></p-breadcrumb>
     </div>
 </div>
+
+
+
+<div class="p-grid p-dir-row" style="margin-top: .5em">
+    
+    <div class="p-row-3 folder" style="flex-wrap: wrap;" *ngFor="let folder of folders; let i=index" >
+        <!-- folder section -->
+        <div class="box" *ngIf="folder.folder" 
+        (dblclick)="gotoFolder(folder)"
+        class="cursor-pointer">
+        <div>
+            <div style="text-align: center;" 
+                     >
+                <img *ngIf="folder.folder" class="hover-img" src="assets/folder.png" style="display:inline-block;margin:2px 0 2px 2px" width="48">
+            </div>
+            <div class="item-name" >{{folder.name}}</div>
+        </div>
+            <div style="text-align: center;">
+                <p-splitButton label="Actions"
+                (onDropdownClick)="itemSelected = folder"
+                styleClass="ui-button-secondary"
+                [model]="folderActions"></p-splitButton>
+            </div>
+        </div>
+        <!-- file section -->
+        <div *ngIf="!folder.folder">
+            <div (click)="downloadFile(folder)">
+                <div style="text-align: center;">
+                    <img *ngIf="!folder.folder" src="assets/file.png" style="display:inline-block;margin:2px 0 2px 2px" width="48">
+                </div>
+                <div class="item-name" >{{folder.name}}</div>
+            </div>
+            
+            <div style="text-align: center;">
+                <p-splitButton 
+                (onDropdownClick)="itemSelected = folder"
+                label="Actions" styleClass="ui-button-secondary"
+                [model]="fileActions"></p-splitButton>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- dialogs -->
+<div class="p-grid p-align-center vertical-container">
+    <div class="p-col">
+        <button pButton type="button" icon="pi pi-plus" label="Create"
+        (click)="createFolder()"></button>
+    </div>
+    <div class="p-col">
+        <button pButton type="button" icon="pi pi-plus" label="upload"
+        (click)="uploadFile()"></button>
+    </div>
+    
+</div>
+
+
+<p-dialog [header]="itemSelected?.folder ? ' Rename folder' : 'Rename file'" position="top"
+ [(visible)]="displayModalRename" [style]="{width: '50vw'}" [baseZIndex]="10000">
+    
+    <div>
+        <input type="text" placeholder="Enter the new name"   [(ngModel)]="newName"  pInputText/>
+    </div>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" 
+        [disabled]="newName ===''"
+        (click)="ApplyRename()" label="Apply"></button>
+        <button type="button" pButton icon="pi pi-times" (click)="displayModalRename=false" label="Cancel"
+         class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>
+
+<p-dialog [header]="'updalod file'" position="top"
+ [(visible)]="displayModalUpload" [style]="{width: '50vw'}" [baseZIndex]="10000">
+    <p-fileUpload name="demo[]" customUpload="true" 
+    (uploadHandler)="onUpload($event)"
+        multiple="multiple" accept="image/*" maxFileSize="1000000">
+</p-fileUpload>
+
+    <p-footer>
+        
+        <button type="button" pButton icon="pi pi-times" 
+        (click)="displayModalUpload=false" label="Cancel"
+         class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>
+
+<p-dialog [header]="'Create folder'" position="top"
+ [(visible)]="displayModalCreate"
+  [style]="{width: '50vw'}" [baseZIndex]="10000">
+    
+    <div>
+        <input type="text" placeholder="Enter the folder name"   [(ngModel)]="newName"  pInputText/>
+    </div>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check"
+        [disabled]="newName ===''"
+        (click)="saveFolder()" label="Save"></button>
+        <button type="button" pButton icon="pi pi-times" 
+        (click)="displayModalCreate=false" label="Cancel"
+         class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>
+
+
+
+
+
 

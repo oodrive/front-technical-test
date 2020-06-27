@@ -4,6 +4,7 @@ import { ManageFoldersComponent } from './manage-folders.component';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { ItemService } from '../services/item.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 const appRoutes : Routes= [
     {
@@ -22,7 +23,7 @@ const appRoutes : Routes= [
     SharedModule,
     RouterModule.forChild(appRoutes),
   ],
-  providers : [ItemService],
+  providers : [ItemService, ConfirmationService,MessageService],
   declarations: [ManageFoldersComponent]
 })
 export class ManageFoldersModule { }

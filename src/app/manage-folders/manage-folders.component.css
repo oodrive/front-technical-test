@@ -1,5 +1,7 @@
 .folder{
     width: 190px;
+    min-width: 190px;
+    min-height: 190px;
     height: 190px;
 }
 .cursor-pointer{
@@ -8,4 +10,12 @@
 
 .hover-img:hover{
     background-color: grey;
+}
+
+.item-name{
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
 }
