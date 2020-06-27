@@ -51,20 +51,20 @@
     </div>
 </div>
 
-
-
-<!-- dialogs -->
-<div class="p-grid p-align-center vertical-container">
-    <div class="p-col">
+<div class="p-grid p-justify-center">
+    <div class="p-row">
+        <div class="box">
         <button pButton type="button" icon="pi pi-plus" label="Create"
-        (click)="createFolder()"></button>
-    </div>
-    <div class="p-col">
+        (click)="createFolder()" style="margin-right: 10px;"></button>
         <button pButton type="button" icon="pi pi-plus" label="upload"
         (click)="uploadFile()"></button>
+        </div>
     </div>
-    
+        
 </div>
+
+<!-- dialogs -->
+
 
 
 <p-dialog [header]="itemSelected?.folder ? ' Rename folder' : 'Rename file'" position="top"
