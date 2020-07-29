@@ -1,1 +1,16 @@
-Hello World!
+<div id="content">
+	<h1 id="content_title">Mon drive</h1>
+	<div id="upload">
+		<div id="upload_btn">
+			<button class="btn">
+				<i class="fa fa-cloud-upload" aria-hidden="true"></i> Importer un
+				fichier
+			</button>
+			<input multiple (change)="onUpload($event.target.files)" type="file" />
+		</div>
+	</div>
+	<fl-list
+		[items]="items"
+		(download)="onDownload($event.fileId, $event.name)"
+	></fl-list>
+</div>

@@ -1,0 +1,31 @@
+#list {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: row wrap;
+}
+
+.list_item {
+	list-style-type: none;
+}
+.list_item.folder {
+	border: 3px solid white;
+	background: #6a7cff;
+	padding: 7px 14px;
+	border-radius: 15px;
+	color: white;
+	cursor: pointer;
+}
+
+.download_btn {
+	border: none;
+	background: transparent;
+	cursor: pointer;
+}
+
+.folder_icon {
+	color: #60d0a1;
+}
+.download_icon {
+	color: blue;
+}

@@ -1,0 +1,20 @@
+<div id="list">
+	<ul *ngFor="let item of items">
+		<li class="list_item" [ngClass]="{ folder: item.folder }">
+			<i
+				*ngIf="item.folder"
+				class="fa fa-folder folder_icon"
+				aria-hidden="true"
+			></i>
+			{{ item.name }}
+			<button
+				*ngIf="!item.folder"
+				title="Télécharger"
+				class="download_btn"
+				(click)="onDownload(item.id, item.name)"
+			>
+				<i class="fa fa-cloud-download download_icon" aria-hidden="true"></i>
+			</button>
+		</li>
+	</ul>
+</div>
