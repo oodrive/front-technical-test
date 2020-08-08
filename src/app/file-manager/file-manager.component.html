@@ -1,0 +1,39 @@
+<div aling="center">
+    <p-fileUpload
+    #fileUpload
+		name="myfile[]"
+		customUpload="true"
+		(uploadHandler)="myUploader($event,fileUpload)"
+	></p-fileUpload>
+</div>
+&nbsp;
+<div>
+	<p-tree
+		[value]="files"
+		(onNodeSelect)="onSelect()"
+		layout="horizontal"
+		selectionMode="single"
+		[(selection)]="selectedFile"
+	></p-tree>
+</div>
+&nbsp;
+<div class="row">
+	<div class="col-md-6">
+		<button
+			pButton
+			type="button"
+			label="Delete"
+			(click)="delete()"
+			*ngIf="showModifButtons"
+		></button>
+	</div>
+	<div class="col-md-6">
+		<button
+			pButton
+			type="button"
+			label="Download"
+			(click)="download()"
+			*ngIf="showModifButtons"
+		></button>
+	</div>
+</div>
