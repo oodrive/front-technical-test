@@ -1,0 +1,26 @@
+<mat-spinner *ngIf="loader; else listeItems"></mat-spinner>
+<ng-template #listeItems>
+    <table matSort (matSortChange)="sortData($event)" class="table">
+        <tr>
+          <th mat-sort-header="id">#</th>
+          <th mat-sort-header="name">name</th>
+          <th mat-sort-header="creation">Date de création</th>
+          <th mat-sort-header="modification">Date de modification</th>
+          <th mat-sort-header="folder">folder</th>
+          <th mat-sort-header="action">action</th>
+        </tr>
+      
+        <tr *ngFor="let item of dataSource.items">
+          <td><i class="fa fa-folder fa-2x"></i></td>
+          <td>{{item.name}}</td>
+          <td>{{item.creation | date :'short'}}</td>
+          <td>{{item.modification | date :'short'}}</td>
+          <td>{{item.folder | yesNo}}</td>
+          <td>
+            <button mat-icon-button (click)="downLoadFile(item.id)"><i class="fa fa-download fa-2x"></i></button>
+            <button mat-icon-button (click)="uploadFile(item.id)"><i class="fa fa-edit fa-2x"></i></button>
+            <button mat-icon-button (click)="deleteFile(item.id)"><i class="fa fa-trash fa-2x"></i></button>
+          </td>
+        </tr>
+    </table>
+</ng-template>

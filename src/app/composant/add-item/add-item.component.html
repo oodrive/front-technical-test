@@ -1,0 +1,14 @@
+<form [formGroup]="itemForm" (ngSubmit)="onSubmitForm()" >
+    <div>
+        <label>Nom: </label>
+        <input matInput placeholder="name" formControlName="name">
+      </div>
+    <div>
+      <label>Fichier: </label>
+      <mat-radio-group formControlName="folder">
+        <mat-radio-button value="true">Oui</mat-radio-button>
+        <mat-radio-button value="false">non</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="itemForm.invalid">Soumettre</button>
+  </form>
