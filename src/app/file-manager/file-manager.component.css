@@ -1,0 +1,12 @@
+.uploadFileBtn {
+	position: absolute;
+	left: 20%;
+	top: 50px;
+	width: 6%;
+	height: 10%;
+	opacity: 0;
+	cursor: pointer;
+}
+.btn_File {
+	margin-right: 5px;
+}

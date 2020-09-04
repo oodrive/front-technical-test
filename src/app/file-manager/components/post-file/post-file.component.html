@@ -1,0 +1,47 @@
+<div class="post-picture-modal">
+	<div class="modal-content">
+		<a (click)="activeModal.dismiss()" class="close icon-close" data-dismiss="modal" aria-label="Close">
+			<button type="button" class="close " aria-label="Close">
+				<span aria-hidden="true" class="close-icon">×</span>
+			</button>
+		</a>
+
+		<div class="modal-header">
+			<h6 class="title">Create new Folder</h6>
+		</div>
+
+		<div class="modal-body">
+			<form [formGroup]="folderForm" (ngSubmit)="onSubmit()">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row">
+
+							<div class="form-group col-md-4">
+								<input type= "text" placeholder= "File 's name" formControlName="name">
+								<div *ngIf="submitted && f.name.errors" [class.d-block]="submitted && f.name.errors"
+									 class="invalid-feedback">
+									<div *ngIf="f.name.errors.required">
+										name is required
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+
+				<div class="d-flex justify-content-end">
+					<button class="btn btn-primary mr-1">
+						save
+					</button>
+				</div>
+			</form>
+
+
+		</div>
+	</div>
+</div>
+
+
+

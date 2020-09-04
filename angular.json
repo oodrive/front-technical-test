@@ -25,8 +25,18 @@
             "customWebpackConfig": {
               "path": "./extra-webpack.config.js"
             },
+            "assets": [
+              "src/favicon.png"
+            ],
             "styles": [
-              "src/index.scss"
+              "src/index.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/sweetalert2/dist/sweetalert2.min.css"
+            ],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "./node_modules/sweetalert2/dist/sweetalert2.all.min.js"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

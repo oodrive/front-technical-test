@@ -1,0 +1,37 @@
+<button class="btn btn-primary btn_File">
+	New File
+	<input type="file" class="uploadFileBtn" (change)="onFileSelected($event)"
+		   #inputFile (click)="inputFile.value = null" multiple="multiple"/>
+</button>
+
+<button class="btn btn-primary" (click)="openModalCreateFolder()">
+	New Folder
+</button>
+<br>
+<br>
+<table class="table table-striped table-hover table-bordered" >
+	<thead>
+	<th>Name</th>
+	<th>Folder</th>
+	<th>Parent Folder</th>
+	<th>Creation</th>
+	<th>Modification</th>
+	<th>Action</th>
+	</thead>
+	<tbody *ngFor="let e of listItems; let index = index">
+	<tr *ngIf="e?.parentId == null">
+
+		<td>{{e?.name}} </td>
+		<td>{{e?.folder ? 'yes' : 'no'}}</td>
+		<td>{{e?.parentId ? e?.parentId : 'root' }}</td>
+		<td>{{e?.creation | date}}</td>
+		<td>{{e?.modification | date}}</td>
+		<td>
+			<button class="btn btn-danger" (click)="deleteItem(e.id, index)">Delete</button>
+			<button class="btn btn-primary" (click)="openModalRenameFolder(e, index)">Update</button>
+			<button class="btn btn-info" *ngIf="e.folder == false" (click)="downloadItem(e)">Download</button>
+			<button class="btn btn-info" *ngIf="e.folder == true" (click)="navigateInsideFolder(e)">Go Inside Folder</button>
+		</td>
+	</tr>
+	</tbody>
+</table>
