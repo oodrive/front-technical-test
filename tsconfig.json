@@ -19,7 +19,8 @@
     "strictFunctionTypes": false,
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
-    "noEmitHelpers": true
+    "noEmitHelpers": true,
+    "skipLibCheck": true
   },
   "include": [
     "./src/**/*"

@@ -1,0 +1,17 @@
+<section class="myClass">
+	<div class="modal-header"  style="background-color: red">
+		<h4 class="modal-title pull-left">{{title}}</h4>
+		<button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()" [tabindex]="-1">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		{{message}}
+	</div>
+	<div class="modal-footer">
+		<ng-container *ngIf="options.length">
+			<button *ngFor="let option of options; let i = index"  id="btn{{i}}"  type="button" class="btn" [ngClass] = "{'btn-primary':(option === 'Oui' && type === 'confirm'), 'btn-danger': (option === 'Oui' && type === 'danger') ,'btn-default': (option === 'Non')}"  (click)="respond(option)">{{option}}</button>
+		</ng-container>
+	</div>
+</section>
+

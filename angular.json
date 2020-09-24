@@ -26,7 +26,15 @@
               "path": "./extra-webpack.config.js"
             },
             "styles": [
-              "src/index.scss"
+              "src/index.scss",
+              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

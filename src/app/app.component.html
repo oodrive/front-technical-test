@@ -1,1 +1,113 @@
-Hello World!
+
+<div ng2FileDrop style="    margin: 24px auto 0; padding: 62px; width: 80%;"
+	 [ngClass]="{'another-file-over-class': hasAnotherDropZoneOver}"
+	 (fileOver)="fileOverAnother($event)"
+	 [uploader]="uploader"
+	 class="well my-drop-zone">
+	<span style="font-size: 30px">Déposer un fichier ici</span>
+	<input type="file" multiple   ng2FileSelect [uploader]="uploader" style="margin: 0 auto" class="btn btn-info">
+</div>
+<button class="btn btn-success" style=" margin-left: 92%; " (click)="uploader.uploadAll()">Upload All </button>
+
+
+	<div>
+		<p-table #table [value]="lists" [paginator]="true" [rows]="5" [responsive]="true"
+				 currentPageReportTemplate="Affichage {first} de {last} a {totalRecords} elements">
+
+			<ng-template pTemplate="caption">
+				<button  class="dt-button buttons-excel buttons-html5 floatLeft"
+						 type="button" title="xls" id="table-export-csv"
+						 (click)="table.exportCSV()">
+					<span>Exporter</span>
+				</button>
+
+				<div style="text-align: right">
+					<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+					<input type="text" pInputText size="13" placeholder="Rechercher" id="table-filtre-global"
+						   (input)="table.filterGlobal($event.target.value, 'contains')"
+						   style="width:auto">
+				</div>
+			</ng-template>
+
+			<ng-template pTemplate="header" let-columns>
+				<tr>
+					<th *ngFor="let col of columns">
+						<input pInputText type="text" id="table-filtre" placeholder="{{col.header}}"
+							   (input)="table.filter($event.target.value, col.field, col.filterMatchMode)">
+
+					</th>
+				</tr>
+				<tr>
+					<th *ngFor="let col of columns" [pSortableColumn]="col.field">
+						{{col.header}}
+						<p-sortIcon [field]="col.field"></p-sortIcon>
+
+					</th>
+				</tr>
+			</ng-template>
+
+
+			<ng-template pTemplate="header">
+				<tr>
+					<th>Nom</th>
+					<th>Creation</th>
+					<th>Modification</th>
+					<th>Type</th>
+					<th>Status</th>
+					<th >Actions</th>
+					<th>Progress</th>
+				</tr>
+				<tr>
+					<th>
+						<input pInputText type="text" (input)="table.filter($event.target.value, 'name', 'contains')" placeholder="Nom" class="p-column-filter">
+					</th>
+
+					<th>
+						<input pInputText type="text" (input)="table.filter($event.target.value, 'creation', 'contains')" placeholder="Creation" class="p-column-filter">
+					</th>
+
+					<th>
+						<input pInputText type="text" (input)="table.filter($event.target.value, 'modification', 'contains')" placeholder="Modification" class="p-column-filter">
+					</th>
+
+					<th>
+						<input pInputText type="text" (input)="table.filter($event.target.value, 'folder', 'contains')" placeholder="Type" class="p-column-filter">
+					</th>
+
+					<th>
+						<input pInputText type="text" (input)="table.filter($event.target.value, 'isSuccess', 'contains')" placeholder="Status" class="p-column-filter">
+					</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-item>
+				<tr>
+					<td>{{ item.name }}</td>
+					<td>{{ item.creation  | date: 'dd/MM/yyyy:HH:mm'}}</td>
+					<td>{{ item.modification | date: 'dd/MM/yyyy:HH:mm'}}</td>
+					<td *ngIf="item.folder">D</td>
+					<td *ngIf="!item.folder">F</td>
+					<td>
+						<span *ngIf="(item.isSuccess === undefined)">uploaded</span>
+						<span *ngIf="(item.isSuccess === false)">not uploaded</span>
+					</td>
+					<td>
+						<button class="btn btn-primary" *ngIf="!item.folder && item.isSuccess === undefined" type="button" (click)="download(item.id,item.name)">Download</button>
+						&nbsp;&nbsp;
+						<button class="btn btn-success"*ngIf="(item.isSuccess === false) && !item.folder" type="button" (click)="(item.listNotUploated.upload())">Upload</button>
+						&nbsp;&nbsp;
+						<button class="btn btn-danger" *ngIf="!item.folder && item.isSuccess === undefined" type="button" (click)="showConfirmDelete(item.id)">Supprimer</button>
+					</td>
+					<td>
+						<div class="progress" *ngIf="item.listNotUploated &&  item.listNotUploated?.progress != 0 && !isNaN(item.listNotUploated?.progress)" style="">
+							<div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.listNotUploated?.progress + '%' }">
+								{{item.listNotUploated?.progress}} %
+							</div>
+						</div>
+					</td>
+				</tr>
+			</ng-template>
+		</p-table>
+
+	</div>
+
+

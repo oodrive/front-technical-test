@@ -1,0 +1,28 @@
+.my-modal-danger .modal-header {
+    background-color: #a90329;
+    color: white;
+}
+
+.my-modal-danger .modal-body {
+    background-color: white;
+
+}
+.my-modal-confirme .modal-header {
+    background-color: #3276b1;
+    color: white;
+}
+
+.my-modal-confirme .modal-body {
+    background-color: white;
+}
+.modal-dialog{
+    top: 4%
+}
+
+
+.showGStyle{
+    position: relative;
+    bottom: 21px;
+    left: -15px;
+
+}
