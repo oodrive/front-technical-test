@@ -1,0 +1,39 @@
+
+@mixin items-hover() {
+    background: #e4e4e4;
+}
+
+.item:hover{
+    @include items-hover();
+}
+
+.previous-list:hover{
+    @include items-hover();
+    cursor: pointer;
+}
+
+.previous-list{
+    padding-left: 25px;
+}
+
+mat-list{
+    padding-top: 0 !important;
+}
+
+mat-list-item{
+    p{
+        font-size: 12px !important;
+        color: #929292;
+    }
+}
+
+.toolbar{
+    padding: 10px;
+    text-align: right;
+    border-bottom: solid 1px #c5c5c5;
+}
+
+.items-container{
+    height: calc(100vh - 170px);
+    overflow: auto;
+}

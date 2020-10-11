@@ -1,0 +1,41 @@
+<div class="toolbar">
+  <input 
+    #fileInput 
+    type="file" 
+    class="form-control" 
+    (change)="addFiles($event)" 
+    multiple
+    style="display: none;"/>
+  <button mat-raised-button (click)="openFileChooser()"><mat-icon>cloud_upload</mat-icon> Upload</button>
+  <button mat-raised-button (click)="openNewFolderForm = true"><mat-icon>create_new_folder</mat-icon> New folder</button>
+</div>
+
+<div class="items-container" flDragNDrop (onFileDropped)="addFiles($event)">
+  <mat-list>
+    
+    <div class="previous-list" *ngIf="parentId !== ''" (click)="backToPrevious()">..</div>
+    
+    <fl-new-folder 
+      *ngIf="openNewFolderForm"
+      [parentId]="parentId"
+      (afterCanceling)="openNewFolderForm = false"
+      (afterCreation)="addNewFolderToList($event)">
+    </fl-new-folder>
+
+    <fl-edit-item
+      *ngIf="openEditItemForm"
+      [item]="itemToEdit"
+      (afterCanceling)="openEditItemForm = false"
+      (afterCreation)="updateItemInTheList($event)">
+    </fl-edit-item>
+
+    <mat-list-item *ngFor="let item of items; let i = index" class="item">
+      <mat-icon mat-list-icon>{{ item.folder ? 'folder' : 'insert_drive_file'}}</mat-icon>
+      <h4 mat-line>{{item.name}}</h4>
+      <p mat-line> {{item.creation | date}} </p>
+      <button mat-icon-button (click)="editItem(item)"><mat-icon>edit</mat-icon></button>
+      <button mat-icon-button (click)="navigateToItem(item)"><mat-icon>{{ item.folder ? 'link' : 'visibility'}}</mat-icon></button>
+      <button mat-icon-button color="warn" (click)="deleteItem(item, i)"><mat-icon>delete_forever</mat-icon></button>
+    </mat-list-item>
+  </mat-list>
+</div>
