@@ -22,4 +22,16 @@ export class AppComponent implements OnInit {
 					console.log(error);
 				});
 	}
+	download(id: string) {
+		this.itemService.download(id)
+			.subscribe(
+				(data) => {
+					const blob = new Blob([data], { type: 'text/csv' });
+					const url = window.URL.createObjectURL(blob);
+					window.open(url);
+				},
+				(error: Error) => {
+					console.log(error);
+				});
+	}
 }

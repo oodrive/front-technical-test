@@ -32,6 +32,10 @@ export class ItemService {
 			}));
 	}
 
+	download(id: string): Observable<ArrayBuffer> {
+		return this.http.get(`${ environment.apiUrl }/items/${id}`, { responseType: 'arraybuffer' });
+	}
+
 	// readOne(id): any{
 	// 	return this.http.get<Room>(${environment.apiUrl}/room/${id})
 	// 		.pipe(map(resp => {
