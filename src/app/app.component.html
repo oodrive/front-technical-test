@@ -1,1 +1,19 @@
-Hello World!
+<div>
+	<h1>Liste des fichiers</h1>
+	<table>
+		<tr>
+			<th scope="col"> Name </th>
+			<th scope="col"> Id </th>
+			<th scope="col"> parentID </th>
+			<th scope="col"> Creation </th>
+			<th scope="col"> Modification </th>
+		</tr>
+		<tr *ngFor="let item of items">
+			<th scope="row" [ngClass]="{'folder': item.folder}"> {{ item.name }} </th>
+			<th scope="row"> {{ item.id }} </th>
+			<th scope="row"> {{ item.parentId }} </th>
+			<th scope="row"> {{ item.creation.toDateString()}} </th>
+			<th scope="row"> {{ item.modification.toDateString() }} </th>
+		</tr>
+	</table>
+</div>
