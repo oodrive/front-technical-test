@@ -11,7 +11,11 @@ import { Item } from '../models/item';
 export class AppComponent implements OnInit {
 	constructor(private itemService: ItemService) {	}
 	items: Item[] = [];
+	fileData: File;
 	ngOnInit() {
+		this.loadItems();
+	}
+	loadItems() {
 		this.itemService.read()
 			.pipe(first())
 			.subscribe(
@@ -33,5 +37,17 @@ export class AppComponent implements OnInit {
 				(error: Error) => {
 					console.log(error);
 				});
+	}
+	fileProgress(fileInput: any) {
+		this.fileData = fileInput.target.files[0] as File;
+	}
+	upload() {
+		this.itemService.upload(this.fileData).subscribe(
+			(data) => {
+				this.loadItems();
+			},
+			(error: Error) => {
+				console.log(error);
+			});
 	}
 }

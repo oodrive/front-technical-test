@@ -18,4 +18,7 @@
 			<th scope="row"><button (click)="download(item.id)" *ngIf="!item.folder"> Download </button></th>
 		</tr>
 	</table>
+	<br>
+	<input (change)="fileProgress($event)" type="file" name="fileData">
+	<button (click)="upload()"> Upload</button>
 </div>

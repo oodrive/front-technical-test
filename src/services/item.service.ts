@@ -5,6 +5,7 @@ import { map } from 'rxjs/internal/operators';
 import { ApiItems } from '../models/apiItems';
 import { Observable } from 'rxjs';
 import { Item } from '../models/item';
+import { ApiUpload } from '../models/apiUpload';
 
 @Injectable({
 	providedIn: 'root',
@@ -13,13 +14,13 @@ export class ItemService {
 
 	constructor(private http: HttpClient) { }
 
-	// post(name, description, openSpace): any{
-	// 	return this.http.post<Room>(${environment.apiUrl}/room/, {name, description, openSpace})
-	// 		.pipe(map(resp => {
-	// 			// store user details and jwt token in local storage to keep user logged in between page refreshes
-	// 			console.log(resp);
-	// 		}));
-	// }
+	upload(file: File): any {
+		const formData = new FormData();
+		formData.append('file', file);
+		return this.http.post<ApiUpload>(`${ environment.apiUrl }/items/`, formData )
+			.pipe(map((resp) => {
+			}));
+	}
 
 	read(): Observable<Item[]> {
 		return this.http.get<ApiItems>(`${ environment.apiUrl }/items/` )
