@@ -50,4 +50,14 @@ export class AppComponent implements OnInit {
 				console.log(error);
 			});
 	}
+	delete(id: string) {
+		this.itemService.delete(id)
+			.subscribe(
+			(data) => {
+				this.loadItems();
+			},
+			(error: Error) => {
+				console.log(error);
+			});
+	}
 }

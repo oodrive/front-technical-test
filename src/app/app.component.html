@@ -8,6 +8,7 @@
 			<th scope="col"> Date Creation </th>
 			<th scope="col"> Date Modification </th>
 			<th scope="col"> Download </th>
+			<th scope="col"> Delete </th>
 		</tr>
 		<tr *ngFor="let item of items">
 			<th scope="row" [ngClass]="{'folder': item.folder}"> {{ item.name }} </th>
@@ -16,6 +17,7 @@
 			<th scope="row"> {{ item.creation.toDateString()}} </th>
 			<th scope="row"> {{ item.modification.toDateString() }} </th>
 			<th scope="row"><button (click)="download(item.id)" *ngIf="!item.folder"> Download </button></th>
+			<th scope="row"><button (click)="delete(item.id)" > Delete </button></th>
 		</tr>
 	</table>
 	<br>

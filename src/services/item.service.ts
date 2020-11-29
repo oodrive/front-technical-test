@@ -37,12 +37,8 @@ export class ItemService {
 		return this.http.get(`${ environment.apiUrl }/items/${id}`, { responseType: 'arraybuffer' });
 	}
 
-	// readOne(id): any{
-	// 	return this.http.get<Room>(${environment.apiUrl}/room/${id})
-	// 		.pipe(map(resp => {
-	// 			// store user details and jwt token in local storage to keep user logged in between page refreshes
-	// 			return resp;
-	// 		}));
-	// }
+	delete(id: string): Observable<string> {
+		return this.http.delete<string>(`${ environment.apiUrl }/items/${id}`);
+	}
 
 }
