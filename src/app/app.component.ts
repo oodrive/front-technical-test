@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
 	items: Item[] = [];
 	fileData: File;
 	nameData: string;
+	folderNameData: string;
 	fileOrFolderData: string;
 	ngOnInit() {
 		this.loadItems();
@@ -46,12 +47,24 @@ export class AppComponent implements OnInit {
 	nameProgress(nameInput: any) {
 		this.nameData = nameInput.target.value;
 	}
+	folderNameProgress(folderNameInput: any) {
+		this.folderNameData = folderNameInput.target.value;
+	}
 	fileOrFolderProgress(fileOrFolderData: any) {
 		this.fileOrFolderData = '';
 		this.fileOrFolderData = fileOrFolderData.target.value;
 	}
 	upload() {
 		this.itemService.upload(this.fileData).subscribe(
+			() => {
+				this.loadItems();
+			},
+			(error: Error) => {
+				console.log(error);
+			});
+	}
+	createFolder() {
+		this.itemService.createFolder(this.folderNameData).subscribe(
 			() => {
 				this.loadItems();
 			},

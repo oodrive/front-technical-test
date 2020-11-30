@@ -20,6 +20,10 @@ export class ItemService {
 		return this.http.post<ApiUpload>(`${ environment.apiUrl }/items/`, formData );
 	}
 
+	createFolder(name: string): any {
+		return this.http.post<ApiUpload>(`${ environment.apiUrl }/items/`, { name, folder: true } );
+	}
+
 	read(): Observable<Item[]> {
 		return this.http.get<ApiItems>(`${ environment.apiUrl }/items/` )
 			.pipe(map((resp) => {

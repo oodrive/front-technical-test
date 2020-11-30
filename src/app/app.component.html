@@ -21,6 +21,8 @@
 		</tr>
 	</table>
 	<br>
+	<input (change)="folderNameProgress($event)" type="text" name="foldernameData">
+	<button (click)="createFolder()" [disabled]="!folderNameData"> Create Folder</button><br>
 	<input (change)="fileProgress($event)" type="file" name="fileData">
 	<button (click)="upload()" [disabled]="!fileData"> Upload</button><br>
 	<select (change)="fileOrFolderProgress($event)" name="fileOrFolderData">
