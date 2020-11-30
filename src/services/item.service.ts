@@ -17,9 +17,7 @@ export class ItemService {
 	upload(file: File): any {
 		const formData = new FormData();
 		formData.append('file', file);
-		return this.http.post<ApiUpload>(`${ environment.apiUrl }/items/`, formData )
-			.pipe(map((resp) => {
-			}));
+		return this.http.post<ApiUpload>(`${ environment.apiUrl }/items/`, formData );
 	}
 
 	read(): Observable<Item[]> {
@@ -41,4 +39,7 @@ export class ItemService {
 		return this.http.delete<string>(`${ environment.apiUrl }/items/${id}`);
 	}
 
+	rename(id: string, name: string): Observable<string> {
+		return this.http.patch<string>(`${ environment.apiUrl }/items/${id}`, { name });
+	}
 }

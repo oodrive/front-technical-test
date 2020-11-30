@@ -22,5 +22,11 @@
 	</table>
 	<br>
 	<input (change)="fileProgress($event)" type="file" name="fileData">
-	<button (click)="upload()"> Upload</button>
+	<button (click)="upload()" [disabled]="!fileData"> Upload</button><br>
+	<select (change)="fileOrFolderProgress($event)" name="fileOrFolderData">
+		<option></option>
+		<option *ngFor="let item of items" value="{{item.name}}" [selected]="item[0]"> {{ item.name }} </option>
+	</select>
+	<input (change)="nameProgress($event)" type="text" name="nameData">
+	<button (click)="rename()" [disabled]="!fileOrFolderData || !nameData"> Rename</button><br>
 </div>

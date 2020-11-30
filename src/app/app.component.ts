@@ -12,6 +12,8 @@ export class AppComponent implements OnInit {
 	constructor(private itemService: ItemService) {	}
 	items: Item[] = [];
 	fileData: File;
+	nameData: string;
+	fileOrFolderData: string;
 	ngOnInit() {
 		this.loadItems();
 	}
@@ -41,9 +43,16 @@ export class AppComponent implements OnInit {
 	fileProgress(fileInput: any) {
 		this.fileData = fileInput.target.files[0] as File;
 	}
+	nameProgress(nameInput: any) {
+		this.nameData = nameInput.target.value;
+	}
+	fileOrFolderProgress(fileOrFolderData: any) {
+		this.fileOrFolderData = '';
+		this.fileOrFolderData = fileOrFolderData.target.value;
+	}
 	upload() {
 		this.itemService.upload(this.fileData).subscribe(
-			(data) => {
+			() => {
 				this.loadItems();
 			},
 			(error: Error) => {
@@ -53,11 +62,32 @@ export class AppComponent implements OnInit {
 	delete(id: string) {
 		this.itemService.delete(id)
 			.subscribe(
-			(data) => {
+			() => {
 				this.loadItems();
 			},
 			(error: Error) => {
 				console.log(error);
 			});
+	}
+	rename() {
+		const selectedItem = this.items.find((Item) => Item.name === this.fileOrFolderData);
+		if ( !selectedItem ) {
+			alert('Select a file or folder');
+		} else {
+			let newNameData = this.nameData;
+			if ( !selectedItem.folder ) {
+				const extension = this.fileOrFolderData.split('.');
+				newNameData = this.nameData + '.' + extension[1];
+			}
+			this.itemService.rename(selectedItem.id, newNameData)
+				.subscribe(
+					() => {
+						this.loadItems();
+						this.fileOrFolderData = '';
+					},
+					(error: Error) => {
+						console.log(error);
+					});
+		}
 	}
 }
