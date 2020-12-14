@@ -1,1 +1,58 @@
-Hello World!
+<div>
+	<h1>Liste des fichiers</h1>
+	<table id="customers">
+		<tr>
+			<th scope="col"> No. </th>
+            <th scope="col"> Nom </th>
+			<th scope="col"> Date de Creation </th>
+			<th scope="col"> Date de Modification </th>
+			<th scope="col"> Télécharger </th>
+            <th scope="col"> Effacer </th>
+            <th scope="col"> Renommer</th>
+		</tr>
+		<tr *ngFor="let item of items; let id=index">
+			<th scope="row"> {{ id }} </th>
+            <th scope="row" [ngClass]="{'folder': item.folder}"> {{ item.name }} </th>
+			<th scope="row"> {{ item.creation.toLocaleDateString ()}} </th>
+			<th scope="row"> {{ item.modification.toLocaleDateString () }} </th>
+            <th scope="row"><button class="button" (click)="download(item)" *ngIf="!item.folder"> Download </button>
+            </th>
+			<th scope="row"><button class="buttonred" (click)="deleteItem(item.id)"> Delete </button></th>
+            <th scope="row"> <button class="button" (click)="rename(item)">Renommer</button></th>
+        </tr>
+    </table>
+    
+      
+    <br>
+    <ngx-dropzone
+    (change)="onSelect($event)"
+  >
+    <ngx-dropzone-label
+      >Déposez vos fichiers ici ou cliquez pour
+      télécharger.</ngx-dropzone-label
+    >
+    <ngx-dropzone-preview
+      class="test"
+      *ngFor="let f of files"
+      [removable]="true"
+      (removed)="onRemove(f)"
+    >
+      <ngx-dropzone-label
+        >{{ f.name }} ({{ f.type }})</ngx-dropzone-label
+      >
+    </ngx-dropzone-preview>
+  </ngx-dropzone>
+  <button class="button mt" (click)="submit()"> Add Files</button><br>
+
+
+
+	<input [(ngModel)]="folderName" type="text" name="foldername">
+    <button class="button mt" (click)="createFolder()" [disabled]="!folderName"> Create Folder</button><br>
+    
+     <div *ngIf="selected" >
+        <input [(ngModel)]="name" type="text" name="name">
+        <button class="button mt" (click)="update()" [disabled]="!name"> Rename</button><br>
+     </div>
+
+	
+</div>
