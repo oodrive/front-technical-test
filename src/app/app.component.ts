@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
 	}
 
 	download(item:Item) {
+		//mimes c'est pour identifier le type de fichier a télécharger
 		let variable = mimes.find(value=>value.id===item.name.split('.')[1])
 		let type= (variable)?variable.mime:"";
 		this.itemService.download(item.id).subscribe((data) => 
