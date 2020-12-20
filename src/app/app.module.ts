@@ -7,11 +7,15 @@ import { DetailsFileComponent } from './views/files/details-file/details-file.co
 import { AppRoutingModule } from '../app-routing.module.ts.service';
 import { FooterComponent } from './views/theme/footer/footer.component';
 import { HeaderComponent } from './views/theme/header/header.component';
-
+import { HttpClientModule } from '@angular/common/http';
+ 
 @NgModule({
 	imports: [
-		BrowserModule,        AppRoutingModule,
-
+		BrowserModule,   
+			 AppRoutingModule,
+			 HttpClientModule,
+			  
+ 
 	],
 	declarations: [
 		AppComponent,
