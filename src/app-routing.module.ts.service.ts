@@ -17,7 +17,7 @@ const routes: Routes = [
 
   { path: 'file', component: ListFileComponent },
 
-	{path: '**', redirectTo: 'file', pathMatch: 'full'},
+  { path: '**', redirectTo: 'file', pathMatch: 'full' },
 
 ];
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { items } from '../../../models/items.interface';
 import { FileService } from '../../../services/_services/file.service.ts.service';
 
 @Component({
@@ -7,50 +8,28 @@ import { FileService } from '../../../services/_services/file.service.ts.service
   styleUrls: ['./list-file.component.css']
 })
 export class ListFileComponent implements OnInit {
+  private _opened: boolean = false;
 
-  constructor(public fileService: FileService) { }
-
-  ngOnInit() {
-    this.fileService.getListItems().subscribe(res => {
-      console.log(res)
-    });
-
-    this.fileService.DownloadFile("8oCI4uHjzQ").subscribe(res => {
-      console.log('DownloadFile')
-      console.log(res)
-      console.log('DownloadFile')
-
-    });
-    this.fileService.getListItemsById("8oCI4uHjzQ").subscribe(res => {
-      console.log('getListItemsById')
-      console.log(res)
-      console.log('getListItemsById')
-
-    });
-    this.fileService.additems({
-      "name": "chichi",
-      "folder": true
-    }).subscribe(res => {
-      console.log('additems')
-      console.log(res)
-      console.log('additems')
-
-    });
-    this.fileService.Patchitems( "8oCI4uHjzQ" ,{
-      "parentId": "ccc"
-    }).subscribe(res => {
-      console.log('Patchitems')
-      console.log(res)
-      console.log('Patchitems')
-
-    });
-    // this.fileService.deleteAbscence("IvTMXurVib").subscribe(res => {
-    //   console.log('deleteAbscence')
-    //   console.log(res)
-    //   console.log('deleteAbscence')
-
-    // });
+  _toggleSidebar() {
+       this._opened = !this._opened;
+       console.log( this._opened)
   }
+  constructor(public fileService: FileService) { }
+  items:items
+  ngOnInit() {
+
+    this.listItem()
+  }
+  listItem() {
+    this.fileService.getListItems().subscribe((res:any) => {
+      console.log(res)
+       this.items=res.items
+    });
+
+  }
+  
+ 
+
 }
 
 

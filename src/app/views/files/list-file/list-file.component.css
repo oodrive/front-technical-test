@@ -1,0 +1,9 @@
+p {
+    font-family: Lato;
+  }
+
+  tbody tr:hover {
+    background-color: #e0e0e0;
+    cursor: grab;
+
+  }

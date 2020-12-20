@@ -1,1 +1,43 @@
-<p>list-file works!</p>
+<ng-sidebar-container style="height: 100vh;">
+
+
+    <!-- Container for sidebar(s) + page content -->
+
+    <!-- A sidebar -->
+    <ng-sidebar [(opened)]="_opened" position="right" style="width: 22%;">
+        <ul>
+            <li>Menu Item</li>
+            <li>Menu Item</li>
+            <li>Menu Item</li>
+        </ul>
+    </ng-sidebar>
+
+    <!-- Page content -->
+    <div ng-sidebar-content>
+
+
+        <div fxFlex="25"></div>
+        <div fxFlex="50">
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th scope="col">name</th>
+                        <th scope="col">creation</th>
+                        <th scope="col">modification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of items" (click)="_toggleSidebar()">
+                        <th scope="row">{{item.name}}</th>
+                        <td>{{item.creation}}</td>
+                        <td>{{item.modification}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div fxFlex="25"></div>
+    </div>
+
+</ng-sidebar-container>
