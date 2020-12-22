@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { items } from '../../../models/items.interface';
 import { FileService } from '../../../services/_services/file.service.ts.service';
 
@@ -25,13 +26,13 @@ export class ListFileComponent implements OnInit {
     this.item = item
     console.log(this.item)
   }
-  constructor(public fileService: FileService) { }
+  constructor(public fileService: FileService ,private toastr: ToastrService) { }
   items: items
-  ngOnInit() {
+  ngOnInit() {    
+
 
     this.listItem()
-    this.AddtItem()
-
+ 
   }
   listItem() {
     this.fileService.getListItems().subscribe((res: any) => {
@@ -43,33 +44,51 @@ export class ListFileComponent implements OnInit {
   DeletItem(id: string) {
     this.fileService.deleteitems(id).subscribe(() => {
       this.listItem()
+      this.toastr.success('File deleted' );
+    }, err => {
+      console.log(err)
+      this.toastr.error(' error File deleted' );
     }
     );
   }
   checkbox: boolean = false
   AddtItem() {
-    console.log(this.name)
-    console.log(this.checkbox)
+
     this.fileService.additems({
       "name": this.name,
       "folder": this.checkbox
     }).subscribe(() => {
       this.listItem()
+      this.toastr.success('File Added' );
+    }, err => {
+      console.log(err)
+
+      this.toastr.error(' error File Added' );
     }
-      , err => {
-        console.log(err)
-      }
     );
   }
-  save() {
-    console.log(this.name)
+  save(item: items) {
+    this.fileService.Patchitems(item.id, { "parentId": item.name }).subscribe(() => {
+      this.toastr.success('File Updated' );
+    }
+    , err => {
+      console.log(err)
+      this.toastr.error(' error File Updated' );
+    })
 
   }
   edit() {
     this.displayData = !this.displayData
   }
 
-
+  DownloadFile(id:string){
+    this.fileService.DownloadFile(id).subscribe(() => {
+      this.toastr.success('File Downloaded' );
+    } , err => {
+      console.log(err)
+      this.toastr.error(' error File Downloaded' );
+    })
+  }
 }
 
 

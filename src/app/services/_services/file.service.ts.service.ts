@@ -37,7 +37,9 @@ export class FileService {
 
   DownloadFile(id: string) {
     //  const endpoint = + id  ;
-    let url = this.apiUrl + id;
+    let endpoint = "items/";
+    let url = this.apiUrl + endpoint;
+    url += id
     const headers = new Headers();
     let params = new HttpParams();
 
@@ -47,7 +49,7 @@ export class FileService {
   }
   deleteitems(id: string) {
     let endpoint = "items/";
-    let url = this.apiUrl  + endpoint;
+    let url = this.apiUrl + endpoint;
     url += id
     let params = new HttpParams();
 

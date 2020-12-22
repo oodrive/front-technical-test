@@ -10,6 +10,8 @@ import { HeaderComponent } from './views/theme/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarModule } from 'ng-sidebar';
 import { FormsModule } from "@angular/forms";
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
 	imports: [
@@ -17,7 +19,9 @@ import { FormsModule } from "@angular/forms";
 		AppRoutingModule,
 		HttpClientModule,
 		 SidebarModule.forRoot(),
-		 FormsModule
+		 FormsModule,
+		 ToastrModule.forRoot(), // ToastrModule added
+		 BrowserAnimationsModule
 
 	],
 	declarations: [

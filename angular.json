@@ -28,7 +28,8 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
 
-              "src/index.scss"
+              "src/index.scss",
+              "node_modules/ngx-toastr/toastr.css"  
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
