@@ -9,43 +9,66 @@ import { FileService } from '../../../services/_services/file.service.ts.service
 })
 export class ListFileComponent implements OnInit {
   private _opened: boolean = false;
-  item:items
-  name:string
-  displayData:boolean=false
-  _toggleSidebar(item:any) {
-       this._opened = !this._opened;
-       this.item=item
-       console.log( this.item)
+  item: items
+  name: string
+  displayData: boolean = false
+  add: boolean = false
+  codeerr: boolean = false
+  _toggleSidebar(item: any, add: string) {
+    if (add == 'add') {
+      this.add = true
+    } else {
+      this.add = false
+
+    }
+    this._opened = !this._opened;
+    this.item = item
+    console.log(this.item)
   }
   constructor(public fileService: FileService) { }
-  items:items
+  items: items
   ngOnInit() {
 
     this.listItem()
+    this.AddtItem()
+
   }
   listItem() {
-    this.fileService.getListItems().subscribe((res:any) => {
+    this.fileService.getListItems().subscribe((res: any) => {
       console.log(res)
-       this.items=res.items
+      this.items = res.items
     });
 
   }
-  DeletItem(id:string) {
+  DeletItem(id: string) {
     this.fileService.deleteitems(id).subscribe(() => {
       this.listItem()
-
-     }
-     );
-
+    }
+    );
   }
-  save(){
+  checkbox: boolean = false
+  AddtItem() {
+    console.log(this.name)
+    console.log(this.checkbox)
+    this.fileService.additems({
+      "name": this.name,
+      "folder": this.checkbox
+    }).subscribe(() => {
+      this.listItem()
+    }
+      , err => {
+        console.log(err)
+      }
+    );
+  }
+  save() {
     console.log(this.name)
 
   }
-  edit(){
+  edit() {
     this.displayData = !this.displayData
   }
- 
+
 
 }
 

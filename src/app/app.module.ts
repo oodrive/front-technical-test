@@ -9,13 +9,15 @@ import { FooterComponent } from './views/theme/footer/footer.component';
 import { HeaderComponent } from './views/theme/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarModule } from 'ng-sidebar';
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
 		HttpClientModule,
-		 SidebarModule.forRoot()
+		 SidebarModule.forRoot(),
+		 FormsModule
 
 	],
 	declarations: [
