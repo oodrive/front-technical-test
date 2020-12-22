@@ -53,4 +53,12 @@ margin-top: 6px;
 
 }
 
+.btn-primary{
+  margin: 50px 0px 0px 50px;
+
+}
+.svg :hover{
+  fill: #DA4567;
+}
+
  

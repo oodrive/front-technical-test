@@ -9,11 +9,13 @@ import { FileService } from '../../../services/_services/file.service.ts.service
 })
 export class ListFileComponent implements OnInit {
   private _opened: boolean = false;
-  item:any
+  item:items
+  name:string
+  displayData:boolean=false
   _toggleSidebar(item:any) {
        this._opened = !this._opened;
        this.item=item
-       console.log( this._opened)
+       console.log( this.item)
   }
   constructor(public fileService: FileService) { }
   items:items
@@ -28,7 +30,21 @@ export class ListFileComponent implements OnInit {
     });
 
   }
-  
+  DeletItem(id:string) {
+    this.fileService.deleteitems(id).subscribe(() => {
+      this.listItem()
+
+     }
+     );
+
+  }
+  save(){
+    console.log(this.name)
+
+  }
+  edit(){
+    this.displayData = !this.displayData
+  }
  
 
 }

@@ -45,8 +45,10 @@ export class FileService {
     return this.http.get<any>(url, { params: params })
       .pipe(catchError(this.handleError));
   }
-  deleteAbscence(id: string) {
-    let url = this.apiUrl + id;
+  deleteitems(id: string) {
+    let endpoint = "items/";
+    let url = this.apiUrl  + endpoint;
+    url += id
     let params = new HttpParams();
 
     return this.http.delete(url, { params: params })
