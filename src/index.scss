@@ -14,14 +14,12 @@ body {
 }
 
   /* Add application styles & imports to this file! */
-  .ng-sidebar {
-    background: red;
-    width: 13rem;
-}
+ 
 
 .ng-sidebar--right {
-    color: red !important;
-    background: antiquewhite;
+    // color: red !important;
+    // background: #f8f9fa;
 	width: 22%;
-	
+	box-shadow: 0 1px 9px -3px rgba(0,0,0,.25);
+	background: #fff;
 }

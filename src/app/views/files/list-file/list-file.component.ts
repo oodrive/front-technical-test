@@ -9,9 +9,10 @@ import { FileService } from '../../../services/_services/file.service.ts.service
 })
 export class ListFileComponent implements OnInit {
   private _opened: boolean = false;
-
-  _toggleSidebar() {
+  item:any
+  _toggleSidebar(item:any) {
        this._opened = !this._opened;
+       this.item=item
        console.log( this._opened)
   }
   constructor(public fileService: FileService) { }

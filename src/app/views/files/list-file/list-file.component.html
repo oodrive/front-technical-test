@@ -1,43 +1,90 @@
 <ng-sidebar-container style="height: 100vh;">
-
-
-    <!-- Container for sidebar(s) + page content -->
-
-    <!-- A sidebar -->
     <ng-sidebar [(opened)]="_opened" position="right" style="width: 22%;">
-        <ul>
-            <li>Menu Item</li>
-            <li>Menu Item</li>
-            <li>Menu Item</li>
-        </ul>
+        <div class="offcanvas-header">
+            <h3 class="font-weight-bold m-0"> User Profile
+
+            </h3>
+            <!-- <a href="#" id="kt_quick_user_close" class="btn btn-xs btn-icon btn-light btn-hover-primary">
+                <i class="ki ki-close icon-xs text-muted"></i>
+            </a> -->
+            <!-- <a href="#" class="close"> </a> -->
+
+        </div>
+        <div class="separator separator-dashed separator-title  "></div>
+
+
+        <div class="form-group offcanvas-info row">
+            <label for="staticEmail" class="col-lg-5 customlabel">Name :</label>
+            <div class="col-lg-7">
+                <input type="text" disabled  class="form-control-plaintext"  value={{item?.name}}>
+            </div>
+        </div>
+        <div class="separator separator-dashed  "></div>
+
+        <div class="form-group offcanvas-info row">
+            <label for="staticEmail" class="col-lg-5 customlabel">Id :</label>
+            <div class="col-lg-7">
+                <input type="text" disabled class="form-control-plaintext"  value={{item?.id}}>
+            </div>
+        </div>
+        <div class="separator separator-dashed  "></div>
+        <div class="form-group offcanvas-info row">
+            <label for="staticEmail" class="col-lg-5 customlabel">Modification :</label>
+            <div class="col-lg-7">
+                <input type="text" disabled class="form-control-plaintext" value={{item?.modification}}>
+            </div>
+        </div>
+        <div class="separator separator-dashed  "></div>
+        <div class="form-group offcanvas-info row">
+            <label for="staticEmail" class="col-lg-5 customlabel">Creation :</label>
+            <div class="col-lg-7">
+                <input type="text" disabled class="form-control-plaintext" value={{item?.creation}}>
+            </div>
+        </div>
+        <div class="separator separator-dashed  "></div>
+        <div class="form-group offcanvas-info row">
+            <label for="staticEmail" class="col-lg-5 customlabel">Folder :</label>
+            <div class="col-lg-7">
+                <input type="text" disabled class="form-control-plaintext" value={{item?.folder}}>
+            </div>
+        </div>
+        <div class="separator separator-dashed  "></div>
+
     </ng-sidebar>
 
     <!-- Page content -->
     <div ng-sidebar-content>
 
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        List Files
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">name</th>
+                                    <th scope="col">creation</th>
+                                    <th scope="col">modification</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of items" (click)="_toggleSidebar(item)">
+                                    <!-- <th scope="row">{{item.name}}</th> -->
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.creation}}</td>
+                                    <td>{{item.modification}}</td>
+                                </tr>
 
-        <div fxFlex="25"></div>
-        <div fxFlex="50">
-            <table class="table">
-
-                <thead>
-                    <tr>
-                        <th scope="col">name</th>
-                        <th scope="col">creation</th>
-                        <th scope="col">modification</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of items" (click)="_toggleSidebar()">
-                        <th scope="row">{{item.name}}</th>
-                        <td>{{item.creation}}</td>
-                        <td>{{item.modification}}</td>
-                    </tr>
-
-                </tbody>
-            </table>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
         </div>
-        <div fxFlex="25"></div>
     </div>
-
 </ng-sidebar-container>
