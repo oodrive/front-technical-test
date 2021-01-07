@@ -2,10 +2,19 @@
     <div class="close" (click)="closeMenu()"></div>
     <div class="folder__actions">
         <button 
+            *ngIf="selectedItem && selectedItem.folder"
             class="action__button action__button--navigate" 
             (click)="navigate()" >
             navigate
         </button>
+
+        <button 
+            *ngIf="selectedItem && !selectedItem.folder"
+            class="action__button action__button--navigate" 
+            (click)="download()" >
+            download
+        </button>
+
         <button 
             class="action__button action__button--delete" 
             (click)="delete()" >

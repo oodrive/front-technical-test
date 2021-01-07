@@ -33,5 +33,9 @@ export class ItemService {
   update(id: string, payload: any) {
     return this.http.patch(`${this.endPoint}/${id}`, payload);
   }
+
+  download(id: string) {
+    return this.http.get(`${this.endPoint}/${id}`, {responseType: 'blob'});
+  }
 }
 

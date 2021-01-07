@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ItemService } from './../../services/item.service';
-// import { ToastrService } from 'ngx-toastr';
+import * as fileSaver from 'file-saver';
 
 @Component({
   selector: 'app-menu',
@@ -56,5 +56,19 @@ export class MenuComponent implements OnInit {
     this.itemService.update(this.selectedItem.id, f.value).subscribe((response: any) => {
       this.itemMoved.emit(response.id)
     })
+  }
+
+  download() {
+    this.itemService.download(this.selectedItem.id).subscribe(
+      (response: any) => {
+        if (response) {
+          fileSaver.saveAs(this.returnBlog(response), this.selectedItem.name);
+        }
+      }
+    )
+  }
+
+  returnBlog(res: any) {
+    return new Blob([res], {type: 'image/jpeg'});
   }
 }
