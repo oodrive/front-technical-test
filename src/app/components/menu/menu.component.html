@@ -1,5 +1,5 @@
-<div class="folder__menu">
-    <div class="close"></div>
+<div class="folder__menu" [class.visible]="selectedItem">
+    <div class="close" (click)="closeMenu()"></div>
     <div class="folder__actions">
         <button class="action__button action__button--navigate">navigate</button>
         <button class="action__button action__button--delete">delete</button>

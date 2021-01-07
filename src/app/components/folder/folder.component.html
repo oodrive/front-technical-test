@@ -1,0 +1,16 @@
+<app-header
+(searchEvent)="recieveSearch($event)" >
+</app-header>
+
+<content class="content">
+    <div class="folder">
+        <app-content 
+            [items]="displayedItems" 
+            (selectedEvent)="recieveItemSelected($event)" >
+        </app-content>
+        <app-menu 
+        [selectedItem]="selectedItem"
+        (unselectedEvent)="recieveItemUnselected($event)" >
+        </app-menu>
+    </div>
+</content>

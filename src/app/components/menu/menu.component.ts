@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+  @Input('selectedItem') selectedItem: any;
+  @Output() unselectedEvent = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  closeMenu() {
+    this.unselectedEvent.emit();
+  }
 }

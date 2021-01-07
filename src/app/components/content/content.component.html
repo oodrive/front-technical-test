@@ -1,82 +1,9 @@
 <div class="folder__content">
-    <div class="folder__item">
+    <div class="folder__item" *ngFor="let item of items" (click)="itemSelected(item)">
         <span class="folder__logo">
-            <i class="bi bi-folder"></i>
+            <i class="bi bi-folder" *ngIf="item.folder"></i>
+            <i class="bi bi-file-earmark-fill" *ngIf="!item.folder"></i>
         </span>
-        <h3 class="folder__name">Folder name</h3>
-    </div>
-    <div class="folder__item">
-        <span class="folder__logo">
-            <i class="bi bi-folder"></i>
-        </span>
-        <h3 class="folder__name">Folder name</h3>
-    </div>
-    <div class="folder__item">
-        <span class="folder__logo">
-            <i class="bi bi-folder"></i>
-        </span>
-        <h3 class="folder__name">Folder name</h3>
-    </div>
-    <div class="folder__item">
-        <span class="folder__logo">
-            <i class="bi bi-folder"></i>
-        </span>
-        <h3 class="folder__name">Folder name</h3>
-    </div>
-    <div class="folder__item">
-        <span class="folder__logo">
-            <i class="bi bi-folder"></i>
-        </span>
-        <h3 class="folder__name">Folder name</h3>
-    </div>
-    <div class="folder__item">
-        <span class="folder__logo">
-            <i class="bi bi-folder"></i>
-        </span>
-        <h3 class="folder__name">Folder name</h3>
-    </div>
-    <div class="folder__item">
-        <span class="folder__logo">
-            <i class="bi bi-folder"></i>
-        </span>
-        <h3 class="folder__name">Folder name</h3>
-    </div>
-    <div class="folder__item">
-        <span class="folder__logo">
-            <i class="bi bi-folder"></i>
-        </span>
-        <h3 class="folder__name">Folder name</h3>
-    </div>
-    <div class="folder__item">
-        <span class="folder__logo">
-            <i class="bi bi-folder"></i>
-        </span>
-        <h3 class="folder__name">Folder name</h3>
-    </div>            <div class="folder__item">
-        <span class="folder__logo">
-            <i class="bi bi-folder"></i>
-        </span>
-        <h3 class="folder__name">Folder name</h3>
-    </div>
-    <div class="folder__item">
-        <span class="folder__logo">
-            <i class="bi bi-folder"></i>
-        </span>
-        <h3 class="folder__name">Folder name</h3>
-    </div>            <div class="folder__item">
-        <span class="folder__logo">
-            <i class="bi bi-folder"></i>
-        </span>
-        <h3 class="folder__name">Folder name</h3>
-    </div>            <div class="folder__item">
-        <span class="folder__logo">
-            <i class="bi bi-folder"></i>
-        </span>
-        <h3 class="folder__name">Folder name</h3>
-    </div>            <div class="folder__item">
-        <span class="folder__logo">
-            <i class="bi bi-folder"></i>
-        </span>
-        <h3 class="folder__name">Folder name</h3>
+        <h3 class="folder__name">{{item.name}}</h3>
     </div>
 </div>
