@@ -1,0 +1,17 @@
+
+<div class="folder__add">
+    <form class="form" #f="ngForm" (ngSubmit)="addFolder(f.value)">
+        <div class="form__group">
+            <input type="text" class="form__input" name="name" ngModel #name="ngModel" placeholder="Folder name..." required>
+            <button class="action__button action__button--gradient">Add folder</button>
+        </div>
+    </form>
+    <div class="folder__add--file">
+        <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label>Drop files here.</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+        </ngx-dropzone>
+    </div>
+</div>

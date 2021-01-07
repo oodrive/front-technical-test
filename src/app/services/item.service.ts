@@ -14,4 +14,19 @@ export class ItemService {
 
     return this.http.get(url);
   }
+
+  delete(id: string) {
+    return this.http.delete(`${this.endPoint}/${id}`);
+  }
+
+  createFolder(payload: any, parentId?: string) {
+    let url = (parentId)? `${this.endPoint}?parentId=${parentId}` : this.endPoint;
+   
+    return this.http.post(url, {...payload, folder: true});
+  }
+
+  addFiles(files: any, parentId?: string) {
+    let url = (parentId)? `${this.endPoint}?parentId=${parentId}` : this.endPoint;
+    return this.http.post(url, files);
+  }
 }

@@ -9,6 +9,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { ContentComponent } from './components/content/content.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { FolderComponent } from './components/folder/folder.component';
+import { AddFolderComponent } from './components/add-folder/add-folder.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 const routes: Routes = [
 	{ path: 'folders', component: FolderComponent },
@@ -21,7 +23,8 @@ const routes: Routes = [
 		BrowserModule,
 		RouterModule.forRoot(routes),
 		HttpClientModule,
-		FormsModule
+		FormsModule,
+		NgxDropzoneModule
 	],
 	declarations: [
 		AppComponent,
@@ -29,6 +32,7 @@ const routes: Routes = [
 		ContentComponent,
 		MenuComponent,
 		FolderComponent,
+		AddFolderComponent,
 	],
 	bootstrap: [AppComponent],
 })

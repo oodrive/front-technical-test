@@ -1,8 +1,16 @@
 <div class="folder__menu" [class.visible]="selectedItem">
     <div class="close" (click)="closeMenu()"></div>
     <div class="folder__actions">
-        <button class="action__button action__button--navigate">navigate</button>
-        <button class="action__button action__button--delete">delete</button>
+        <button 
+            class="action__button action__button--navigate" 
+            (click)="navigate()" >
+            navigate
+        </button>
+        <button 
+            class="action__button action__button--delete" 
+            (click)="delete()" >
+            delete
+        </button>
     </div>
     <div class="folder__form">
         <form class="form">

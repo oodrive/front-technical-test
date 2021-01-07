@@ -180,6 +180,22 @@ body {
 		margin-bottom: 2rem;
 		flex-wrap: wrap;
 	}
+
+	&__add {
+		display: flex;
+		justify-content: space-between;
+		align-items: stretch;
+		flex-wrap: wrap;
+
+		&--file {
+			background-color: white;
+			padding: 2rem;
+			border-radius: 1rem;
+			margin-bottom: 2rem;
+			margin-left: 2rem;
+			flex: 1;
+		}
+	}
 }
 
 .action {

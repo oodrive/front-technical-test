@@ -1,0 +1,12 @@
+.form {
+	margin-bottom: 2rem;
+	width: 50%;
+
+	&__group {
+		justify-content: space-around;
+	}
+
+	&__input {
+		margin: 3rem 0;
+	}
+}
