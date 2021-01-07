@@ -17,9 +17,12 @@ export class AddFolderComponent implements OnInit {
 
   ngOnInit() {}
 
-  addFolder(payload: any) {
-     this.itemService.createFolder(payload, this.currentFolder).subscribe(
-       (response: any) => this.folderAdded.emit(response)
+  addFolder(form: any) {
+     this.itemService.createFolder(form.value, this.currentFolder).subscribe(
+       (response: any) => {
+         this.folderAdded.emit(response)
+         form.reset();
+        }
      );
   }
 

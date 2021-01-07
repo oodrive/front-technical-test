@@ -17,9 +17,13 @@
             (selectedEvent)="recieveItemSelected($event)" >
         </app-content>
         <app-menu 
+            [currentFolder]="currentFolder" 
             [selectedItem]="selectedItem"
+            [folders]="folders"
             (unselectedEvent)="recieveItemUnselected($event)"
-            (itemDeleted)="recieveItemDeleted($event)" >
+            (itemDeleted)="recieveItemDeleted($event)"
+            (itemMoved)="recieveMove($event)"
+            (nameChanged)="recieveUpdate($event)" >
         </app-menu>
     </div>
 </content>

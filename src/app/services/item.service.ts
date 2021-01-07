@@ -29,4 +29,9 @@ export class ItemService {
     let url = (parentId)? `${this.endPoint}?parentId=${parentId}` : this.endPoint;
     return this.http.post(url, files);
   }
+
+  update(id: string, payload: any) {
+    return this.http.patch(`${this.endPoint}/${id}`, payload);
+  }
 }
+

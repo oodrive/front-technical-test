@@ -76,4 +76,14 @@ export class FolderComponent implements OnInit {
 
     this.getFolders();
   }
+
+  recieveUpdate($event: any) {
+    const index = this.items.findIndex((item:any) => item.id === $event.id);
+    this.items[index] = $event;
+  }
+
+  recieveMove($event: any) {
+    const index = this.items.findIndex((item:any) => item.id == $event);
+    this.items.splice(index, 1);
+  }
 }
