@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ItemService } from './../../services/item.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-folder',
@@ -13,7 +14,7 @@ export class AddFolderComponent implements OnInit {
 
   files: File[] = [];
 
-  constructor(private itemService: ItemService) { }
+  constructor(private itemService: ItemService, private toastr: ToastrService) { }
 
   ngOnInit() {}
 
@@ -22,7 +23,8 @@ export class AddFolderComponent implements OnInit {
        (response: any) => {
          this.folderAdded.emit(response)
          form.reset();
-        }
+        },
+        (error: any) => this.toastr.error('Name already used')
      );
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItemService } from './../../services/item.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'fl-folder',
@@ -14,7 +15,7 @@ export class FolderComponent implements OnInit {
   selectedItem: any = null;
   folders: any;
 
-  constructor(private itemService: ItemService, private route : ActivatedRoute) { }
+  constructor(private itemService: ItemService, private route : ActivatedRoute, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.items = [];
@@ -57,6 +58,7 @@ export class FolderComponent implements OnInit {
     this.selectedItem = null;
 
     this.getFolders();
+    this.toastr.success("Item deleted successfully.")
   }
 
   getFolders() {
@@ -68,6 +70,7 @@ export class FolderComponent implements OnInit {
     this.items.push(item);
 
     this.getFolders();
+    this.toastr.success("Item added successfully.")
   }
 
   recieveFiles(item: any) {
@@ -75,15 +78,21 @@ export class FolderComponent implements OnInit {
     this.items = newArray;
 
     this.getFolders();
+    this.toastr.success("Files added successfully.")
   }
 
   recieveUpdate($event: any) {
     const index = this.items.findIndex((item:any) => item.id === $event.id);
     this.items[index] = $event;
+
+    this.toastr.success("Item updated successfully.")
   }
 
   recieveMove($event: any) {
     const index = this.items.findIndex((item:any) => item.id == $event);
     this.items.splice(index, 1);
+    this.selectedItem = null;
+
+    this.toastr.success("Item moved successfully.")
   }
 }

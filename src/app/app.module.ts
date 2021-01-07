@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -24,7 +26,9 @@ const routes: Routes = [
 		RouterModule.forRoot(routes),
 		HttpClientModule,
 		FormsModule,
-		NgxDropzoneModule
+		NgxDropzoneModule,
+		BrowserAnimationsModule,
+		ToastrModule.forRoot()
 	],
 	declarations: [
 		AppComponent,

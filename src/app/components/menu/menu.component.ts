@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ItemService } from './../../services/item.service';
+// import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-menu',
@@ -21,7 +22,8 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private itemService: ItemService, 
-    private router: Router
+    private router: Router,
+    // private toastr: ToastrService
   ) {}
 
   ngOnInit() { }
