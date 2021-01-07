@@ -6,7 +6,7 @@
     "stripInternal": true,
     "newLine": "LF",
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "moduleResolution": "Node",
     "strictNullChecks": true,
     "noImplicitAny": true,

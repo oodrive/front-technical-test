@@ -24,7 +24,9 @@ export class AddFolderComponent implements OnInit {
          this.folderAdded.emit(response)
          form.reset();
         },
-        (error: any) => this.toastr.error('Name already used')
+        (error: any) => {
+          this.toastr.error('Name already used');          
+        }
      );
   }
 
