@@ -2,7 +2,7 @@
 
 This test is part of Oodrive's hiring process for a front-end developer position. It should take 3 to 6 hours of your time.
 
-> **Feel free to apply!**  
+> **Feel free to apply!**
 > **Contact us through [our application page](https://careers.oodrive.com/fr/candidature/spontanee).**
 >
 > You can also find the list of open positions at Oodrive on [our careers page](https://careers.oodrive.com/fr/annonces).

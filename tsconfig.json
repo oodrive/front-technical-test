@@ -6,7 +6,7 @@
     "stripInternal": true,
     "newLine": "LF",
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "moduleResolution": "Node",
     "strictNullChecks": true,
     "noImplicitAny": true,
@@ -23,5 +23,9 @@
   },
   "include": [
     "./src/**/*"
+  ],
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
   ]
 }

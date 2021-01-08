@@ -1,0 +1,57 @@
+<div class="folder__menu" [class.visible]="selectedItem">
+    <div class="close" (click)="closeMenu()"></div>
+    <div class="folder__actions">
+        <button 
+            *ngIf="selectedItem && selectedItem.folder"
+            class="action__button action__button--navigate" 
+            (click)="navigate()" >
+            navigate
+        </button>
+
+        <button 
+            *ngIf="selectedItem && !selectedItem.folder"
+            class="action__button action__button--navigate" 
+            (click)="download()" >
+            download
+        </button>
+
+        <button 
+            class="action__button action__button--delete" 
+            (click)="delete()" >
+            delete
+        </button>
+    </div>
+    <div class="folder__form">
+        <form class="form" *ngIf="selectedItem" #f="ngForm" (submit)="updateItemName(f)">
+            <div class="form__group">
+                <label for="" class="form__label">Name</label>
+                <input 
+                    type="text" 
+                    class="form__input" 
+                    placeholder="name" 
+                    name="name" 
+                    [ngModel]="selectedItem.name"
+                    required
+                >
+            </div>
+            <button class="action__button action__button--gradient">Change name</button>
+        </form>
+    </div>
+
+    <div class="folder__form">
+        <form class="form" *ngIf="selectedItem" #f="ngForm" (submit)="updateItemLocation(f)">
+            <div class="form__group">
+                <label for="" class="form__label">Location</label>
+                <select name="parentId" class="form__select" [ngModel]="selectedItem.parentId">
+                    <option value="">root</option>
+                    <option 
+                        *ngFor="let folder of getFoldersList()" 
+                        [ngValue]="folder.id" >
+                        {{folder.name}}
+                    </option>
+                </select>
+            </div>
+            <button class="action__button action__button--gradient">Change location</button>
+        </form>
+    </div>
+</div>

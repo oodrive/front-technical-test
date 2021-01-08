@@ -1,0 +1,9 @@
+apiVersion: review.oodrive.com/v1
+kind: MergeRequest
+metadata:
+  name: ${REVIEW_NAME}
+  namespace: merge-requests
+spec:
+  nginxImage: ${REVIEW_IMAGE}
+  image: frontend/recruitment/shallow:latest
+  config: {}

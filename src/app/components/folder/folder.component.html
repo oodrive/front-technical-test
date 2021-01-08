@@ -1,0 +1,29 @@
+<app-header
+    *ngIf="folders"
+    (searchEvent)="recieveSearch($event)"
+    [folders]="this.folders.length"
+    [files]="this.items.length - this.folders.length" >
+</app-header>
+
+<content class="content">
+    <div class="folder">
+        <app-add-folder
+            [currentFolder]="currentFolder" 
+            (folderAdded)="recieveItemAdded($event)"
+            (filesAdded)="recieveFiles($event)" >
+        </app-add-folder>
+        <app-content 
+            [items]="displayedItems" 
+            (selectedEvent)="recieveItemSelected($event)" >
+        </app-content>
+        <app-menu 
+            [currentFolder]="currentFolder" 
+            [selectedItem]="selectedItem"
+            [folders]="folders"
+            (unselectedEvent)="recieveItemUnselected($event)"
+            (itemDeleted)="recieveItemDeleted($event)"
+            (itemMoved)="recieveMove($event)"
+            (nameChanged)="recieveUpdate($event)" >
+        </app-menu>
+    </div>
+</content>
